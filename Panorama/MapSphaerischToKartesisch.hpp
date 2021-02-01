@@ -11,7 +11,7 @@ public:
     const KartesischeKoordinaten get(const SphaerischeKoordinaten& input) const;
     const SphaerischeKoordinaten getUrbild(const KartesischeKoordinaten& input) const;
 private:
-    double suedpol = 200;
+    double suedpol = 250;
 };
 
 #endif /* MapSphaerischToKartesisch_hpp */

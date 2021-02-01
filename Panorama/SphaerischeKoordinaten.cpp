@@ -22,5 +22,9 @@ void SphaerischeKoordinaten::print() const {
 }
 
 const double SphaerischeKoordinaten::angularDistance(const SphaerischeKoordinaten& other) const {
-    return acos(sin(other.getLat())*sin(this->getLat())+cos(other.getLat())*cos(this->getLat())*cos(other.getLon()-this->getLon()));
+    return acos(sin(other.getLat())*
+                sin(this->getLat())+
+                cos(other.getLat())*
+                cos(this->getLat())*
+                cos(other.getLon()-this->getLon()));
 }

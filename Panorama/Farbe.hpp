@@ -6,6 +6,7 @@
 struct Farbe {
 public:
     Farbe(const unsigned char r, const unsigned char g, const unsigned char b);
+    void print() const;
     unsigned char r;
     unsigned char g;
     unsigned char b;
