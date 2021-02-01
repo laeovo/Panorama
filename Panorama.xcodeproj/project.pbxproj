@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		B3619BB125C604C900CEAA61 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BB025C604C900CEAA61 /* main.cpp */; };
+		B3619BBD25C6243B00CEAA61 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3619BBC25C6243B00CEAA61 /* libSDL2-2.0.0.dylib */; };
+		B3619BC125C62FB800CEAA61 /* KartesischeKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BBF25C62FB800CEAA61 /* KartesischeKoordinaten.cpp */; };
+		B3619BC525C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BC325C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp */; };
+		B3619BC925C6F46800CEAA61 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BC725C6F46800CEAA61 /* util.cpp */; };
+		B3619BCD25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BCB25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp */; };
+		B3619BD125C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BCF25C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp */; };
+		B3619BD825C768C600CEAA61 /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3619BD725C768C600CEAA61 /* libjpeg.9.dylib */; };
+		B3619BDD25C77F1B00CEAA61 /* SphaerischesBild.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BDB25C77F1B00CEAA61 /* SphaerischesBild.cpp */; };
+		B3619BE125C77F6900CEAA61 /* Farbe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BDF25C77F6900CEAA61 /* Farbe.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +34,22 @@
 /* Begin PBXFileReference section */
 		B3619BAD25C604C900CEAA61 /* Panorama */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Panorama; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3619BB025C604C900CEAA61 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B3619BBC25C6243B00CEAA61 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../usr/local/Cellar/sdl2/2.0.9_1/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
+		B3619BBF25C62FB800CEAA61 /* KartesischeKoordinaten.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = KartesischeKoordinaten.cpp; sourceTree = "<group>"; };
+		B3619BC025C62FB800CEAA61 /* KartesischeKoordinaten.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KartesischeKoordinaten.hpp; sourceTree = "<group>"; };
+		B3619BC325C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SphaerischeKoordinaten.cpp; sourceTree = "<group>"; };
+		B3619BC425C6F34F00CEAA61 /* SphaerischeKoordinaten.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SphaerischeKoordinaten.hpp; sourceTree = "<group>"; };
+		B3619BC725C6F46800CEAA61 /* util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
+		B3619BC825C6F46800CEAA61 /* util.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = util.hpp; sourceTree = "<group>"; };
+		B3619BCB25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MapKartesischToSphaerisch.cpp; sourceTree = "<group>"; };
+		B3619BCC25C6F4A900CEAA61 /* MapKartesischToSphaerisch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapKartesischToSphaerisch.hpp; sourceTree = "<group>"; };
+		B3619BCF25C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MapSphaerischToKartesisch.cpp; sourceTree = "<group>"; };
+		B3619BD025C6F51800CEAA61 /* MapSphaerischToKartesisch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapSphaerischToKartesisch.hpp; sourceTree = "<group>"; };
+		B3619BD725C768C600CEAA61 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = ../../../../usr/local/Cellar/jpeg/9c/lib/libjpeg.9.dylib; sourceTree = "<group>"; };
+		B3619BDB25C77F1B00CEAA61 /* SphaerischesBild.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SphaerischesBild.cpp; sourceTree = "<group>"; };
+		B3619BDC25C77F1B00CEAA61 /* SphaerischesBild.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SphaerischesBild.hpp; sourceTree = "<group>"; };
+		B3619BDF25C77F6900CEAA61 /* Farbe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Farbe.cpp; sourceTree = "<group>"; };
+		B3619BE025C77F6900CEAA61 /* Farbe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Farbe.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3619BD825C768C600CEAA61 /* libjpeg.9.dylib in Frameworks */,
+				B3619BBD25C6243B00CEAA61 /* libSDL2-2.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +70,7 @@
 			children = (
 				B3619BAF25C604C900CEAA61 /* Panorama */,
 				B3619BAE25C604C900CEAA61 /* Products */,
+				B3619BBB25C6243A00CEAA61 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +86,31 @@
 			isa = PBXGroup;
 			children = (
 				B3619BB025C604C900CEAA61 /* main.cpp */,
+				B3619BDB25C77F1B00CEAA61 /* SphaerischesBild.cpp */,
+				B3619BDC25C77F1B00CEAA61 /* SphaerischesBild.hpp */,
+				B3619BDF25C77F6900CEAA61 /* Farbe.cpp */,
+				B3619BE025C77F6900CEAA61 /* Farbe.hpp */,
+				B3619BBF25C62FB800CEAA61 /* KartesischeKoordinaten.cpp */,
+				B3619BC025C62FB800CEAA61 /* KartesischeKoordinaten.hpp */,
+				B3619BC325C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp */,
+				B3619BC425C6F34F00CEAA61 /* SphaerischeKoordinaten.hpp */,
+				B3619BC725C6F46800CEAA61 /* util.cpp */,
+				B3619BC825C6F46800CEAA61 /* util.hpp */,
+				B3619BCB25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp */,
+				B3619BCC25C6F4A900CEAA61 /* MapKartesischToSphaerisch.hpp */,
+				B3619BCF25C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp */,
+				B3619BD025C6F51800CEAA61 /* MapSphaerischToKartesisch.hpp */,
 			);
 			path = Panorama;
+			sourceTree = "<group>";
+		};
+		B3619BBB25C6243A00CEAA61 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3619BD725C768C600CEAA61 /* libjpeg.9.dylib */,
+				B3619BBC25C6243B00CEAA61 /* libSDL2-2.0.0.dylib */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +169,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3619BDD25C77F1B00CEAA61 /* SphaerischesBild.cpp in Sources */,
+				B3619BCD25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp in Sources */,
+				B3619BE125C77F6900CEAA61 /* Farbe.cpp in Sources */,
+				B3619BC525C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp in Sources */,
+				B3619BD125C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp in Sources */,
 				B3619BB125C604C900CEAA61 /* main.cpp in Sources */,
+				B3619BC125C62FB800CEAA61 /* KartesischeKoordinaten.cpp in Sources */,
+				B3619BC925C6F46800CEAA61 /* util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +298,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/Cellar/jpeg/9c/include,
+					/usr/local/Cellar/cimg/2.7.1/include/,
+					/opt/X11/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/jpeg/9c/lib,
+					/usr/local/Cellar/sdl2/2.0.9_1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -248,6 +316,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/Cellar/jpeg/9c/include,
+					/usr/local/Cellar/cimg/2.7.1/include/,
+					/opt/X11/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/jpeg/9c/lib,
+					/usr/local/Cellar/sdl2/2.0.9_1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
