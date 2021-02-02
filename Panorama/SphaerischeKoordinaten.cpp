@@ -6,7 +6,12 @@
 using namespace std;
 
 SphaerischeKoordinaten::SphaerischeKoordinaten(const double lon, const double lat) : lon(lon), lat(lat) {
-    
+    while (this->lon < -M_PI) {
+        this->lon += 2*M_PI;
+    }
+    while (this->lon > M_PI) {
+        this->lon -= 2*M_PI;
+    }
 }
 
 const double SphaerischeKoordinaten::getLon() const {

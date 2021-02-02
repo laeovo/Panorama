@@ -18,6 +18,7 @@
 		B3619BDD25C77F1B00CEAA61 /* SphaerischesBild.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BDB25C77F1B00CEAA61 /* SphaerischesBild.cpp */; };
 		B3619BE125C77F6900CEAA61 /* Farbe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BDF25C77F6900CEAA61 /* Farbe.cpp */; };
 		B3919BE025C823DB0047F7CC /* KugelTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3919BDE25C823DB0047F7CC /* KugelTriangulation.cpp */; };
+		B3919BEB25C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3919BE925C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,8 @@
 		B3619BE025C77F6900CEAA61 /* Farbe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Farbe.hpp; sourceTree = "<group>"; };
 		B3919BDE25C823DB0047F7CC /* KugelTriangulation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = KugelTriangulation.cpp; sourceTree = "<group>"; };
 		B3919BDF25C823DB0047F7CC /* KugelTriangulation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KugelTriangulation.hpp; sourceTree = "<group>"; };
+		B3919BE925C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Kartesische3DKoordinaten.cpp; sourceTree = "<group>"; };
+		B3919BEA25C9B82A0047F7CC /* Kartesische3DKoordinaten.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Kartesische3DKoordinaten.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,8 @@
 				B3619BC425C6F34F00CEAA61 /* SphaerischeKoordinaten.hpp */,
 				B3619BC725C6F46800CEAA61 /* util.cpp */,
 				B3619BC825C6F46800CEAA61 /* util.hpp */,
+				B3919BE925C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp */,
+				B3919BEA25C9B82A0047F7CC /* Kartesische3DKoordinaten.hpp */,
 				B3619BCB25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp */,
 				B3619BCC25C6F4A900CEAA61 /* MapKartesischToSphaerisch.hpp */,
 				B3619BCF25C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp */,
@@ -176,6 +181,7 @@
 			files = (
 				B3619BDD25C77F1B00CEAA61 /* SphaerischesBild.cpp in Sources */,
 				B3619BCD25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp in Sources */,
+				B3919BEB25C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp in Sources */,
 				B3619BE125C77F6900CEAA61 /* Farbe.cpp in Sources */,
 				B3619BC525C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp in Sources */,
 				B3619BD125C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp in Sources */,

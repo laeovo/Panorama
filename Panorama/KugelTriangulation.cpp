@@ -15,7 +15,7 @@ KugelTriangulation::KugelTriangulation(const double aufloesung) : aufloesung(auf
     }
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer{t1-t0};
-    cout << "Triangulation erstellt: " << this->zahlen.size() << " Zeilen mit " << this->getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
+    cout << "Triangulation erstellt: " << this->zahlen.size() << " Zeilen mit " << this->getAnzahlRegionen() << " Regionen. Auflösung: " << this->aufloesung << " (" << dauer.count() << " Sekunden)" << endl;
 }
 
 const unsigned int KugelTriangulation::getRegion(const SphaerischeKoordinaten &koord) const {
