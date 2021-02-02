@@ -22,7 +22,7 @@ public:
 private:
     std::vector<std::vector<std::pair<SphaerischeKoordinaten, Farbe>>> bild;
     const double schaerfe{0.01}; // Einflussradius der Pixel.
-    const KugelTriangulation triangulation{0.004}; // Unterteilung in Regionen. Der Parameter gibt die Regionengröße an. Vorzugsweise so, dass immer ca. 10 Pixel in einer Region sind.
+    const KugelTriangulation triangulation{0.01}; // Unterteilung in Regionen. Der Parameter gibt die Regionengröße an. Vorzugsweise so, dass immer ca. 10 Pixel in einer Region sind.
 };
 
 #endif /* SphaerischesBild_hpp */

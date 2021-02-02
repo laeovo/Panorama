@@ -307,12 +307,16 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/Cellar/jpeg/9c/include,
+					/usr/local/Cellar/jpeg/9d/include/,
 					/usr/local/Cellar/cimg/2.7.1/include/,
+					/usr/local/Cellar/cimg/2.9.4/include/,
 					/opt/X11/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/Cellar/jpeg/9c/lib,
 					/usr/local/Cellar/sdl2/2.0.9_1/lib,
+					/usr/local/Cellar/sdl2/2.0.12_1/lib,
+					/usr/local/Cellar/jpeg/9d/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -325,12 +329,16 @@
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/Cellar/jpeg/9c/include,
+					/usr/local/Cellar/jpeg/9d/include/,
 					/usr/local/Cellar/cimg/2.7.1/include/,
+					/usr/local/Cellar/cimg/2.9.4/include/,
 					/opt/X11/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/Cellar/jpeg/9c/lib,
 					/usr/local/Cellar/sdl2/2.0.9_1/lib,
+					/usr/local/Cellar/sdl2/2.0.12_1/lib,
+					/usr/local/Cellar/jpeg/9d/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

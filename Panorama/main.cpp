@@ -27,7 +27,7 @@ void quadratmalen(SDL_Renderer* renderer, const int x, const int y, const int au
 int main(int argc, const char * argv[]) {
     
     
-    const SphaerischesBild bild{cimg_library::CImg<unsigned char>("earth.jpg")};
+    const SphaerischesBild bild{cimg_library::CImg<unsigned char>("panoramatest.jpg"), 16, 36};
 
     const MapSphaerischToKartesisch map{};
     // Hintergrund
@@ -40,6 +40,7 @@ int main(int argc, const char * argv[]) {
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
+    cout << "Rendere kartesische Ansicht aus sphärischem Bild" << endl;
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     const int aufloesung{1};
     for (int i = -512; i < 512; i += aufloesung) {
