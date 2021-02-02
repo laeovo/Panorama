@@ -5,6 +5,7 @@
 using namespace std;
 
 KugelTriangulation::KugelTriangulation(const double aufloesung) : aufloesung(aufloesung) {
+    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     for (double phi = M_PI/2-this->aufloesung; phi > -M_PI/2; phi -= this->aufloesung) {
         const double umfang{2*M_PI*cos(phi)};
         const int anzahl{int(umfang/aufloesung+1)};
@@ -12,7 +13,9 @@ KugelTriangulation::KugelTriangulation(const double aufloesung) : aufloesung(auf
         this->zahlen.push_back(anzahl);
         this->breiten.push_back(breite);
     }
-    cout << "Triangulation erstellt: " << this->zahlen.size() << " Zeilen mit " << this->getAnzahlRegionen() << " Regionen" << endl;
+    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
+    const chrono::duration<double> dauer{t1-t0};
+    cout << "Triangulation erstellt: " << this->zahlen.size() << " Zeilen mit " << this->getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
 }
 
 const unsigned int KugelTriangulation::getRegion(const SphaerischeKoordinaten &koord) const {

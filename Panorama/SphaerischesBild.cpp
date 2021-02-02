@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 
 #include "SphaerischesBild.hpp"
@@ -5,6 +6,7 @@
 using namespace std;
 
 SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild) {
+    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
     const double aufloesungLon{2*M_PI / bild.width()};
     const double aufloesungLat{M_PI / bild.height()};
@@ -17,14 +19,15 @@ SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild) {
             ++pixelcounter;
         }
     }
-    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen" << endl;
+    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
+    const chrono::duration<double> dauer{t1-t0};
+    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
 }
 
 SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild, const double brennweite, const double sensorbreite) {
+    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
     const double seitenverhaeltnis{(0.+bild.height())/bild.width()};
-    const double gesichtsfeldHorizontal{2*atan(0.5*sensorbreite/brennweite)};
-    const double gesichtsfeldVertikal{2*atan(0.5*(sensorbreite*seitenverhaeltnis)/brennweite)};
     const double gesichtsfeldDiagonal{2*atan(0.5*(sensorbreite*sqrt(1+pow(seitenverhaeltnis,2)))/brennweite)};
     const double diagonalenlaenge{2*sin(0.5*gesichtsfeldDiagonal)};
     const double projektionsebene{sqrt(1-pow(diagonalenlaenge/2,2))};
@@ -57,7 +60,9 @@ SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild, const
             ++pixelcounter;
         }
     }
-    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen" << endl;
+    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
+    const chrono::duration<double> dauer{t1-t0};
+    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
 }
 
 const Farbe SphaerischesBild::get(const SphaerischeKoordinaten& koordinaten) const {
