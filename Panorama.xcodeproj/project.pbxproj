@@ -19,6 +19,8 @@
 		B3619BE125C77F6900CEAA61 /* Farbe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3619BDF25C77F6900CEAA61 /* Farbe.cpp */; };
 		B3919BE025C823DB0047F7CC /* KugelTriangulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3919BDE25C823DB0047F7CC /* KugelTriangulation.cpp */; };
 		B3919BEB25C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3919BE925C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp */; };
+		B3B0A5C225CB2103006F3FF0 /* MapKartesischToScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B0A5C025CB2103006F3FF0 /* MapKartesischToScreen.cpp */; };
+		B3B0A5C625CB214A006F3FF0 /* ScreenKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B0A5C425CB214A006F3FF0 /* ScreenKoordinaten.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +58,10 @@
 		B3919BDF25C823DB0047F7CC /* KugelTriangulation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = KugelTriangulation.hpp; sourceTree = "<group>"; };
 		B3919BE925C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Kartesische3DKoordinaten.cpp; sourceTree = "<group>"; };
 		B3919BEA25C9B82A0047F7CC /* Kartesische3DKoordinaten.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Kartesische3DKoordinaten.hpp; sourceTree = "<group>"; };
+		B3B0A5C025CB2103006F3FF0 /* MapKartesischToScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MapKartesischToScreen.cpp; sourceTree = "<group>"; };
+		B3B0A5C125CB2103006F3FF0 /* MapKartesischToScreen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapKartesischToScreen.hpp; sourceTree = "<group>"; };
+		B3B0A5C425CB214A006F3FF0 /* ScreenKoordinaten.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenKoordinaten.cpp; sourceTree = "<group>"; };
+		B3B0A5C525CB214A006F3FF0 /* ScreenKoordinaten.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenKoordinaten.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,8 @@
 				B3619BDC25C77F1B00CEAA61 /* SphaerischesBild.hpp */,
 				B3619BDF25C77F6900CEAA61 /* Farbe.cpp */,
 				B3619BE025C77F6900CEAA61 /* Farbe.hpp */,
+				B3B0A5C425CB214A006F3FF0 /* ScreenKoordinaten.cpp */,
+				B3B0A5C525CB214A006F3FF0 /* ScreenKoordinaten.hpp */,
 				B3619BBF25C62FB800CEAA61 /* KartesischeKoordinaten.cpp */,
 				B3619BC025C62FB800CEAA61 /* KartesischeKoordinaten.hpp */,
 				B3619BC325C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp */,
@@ -110,6 +118,8 @@
 				B3619BCC25C6F4A900CEAA61 /* MapKartesischToSphaerisch.hpp */,
 				B3619BCF25C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp */,
 				B3619BD025C6F51800CEAA61 /* MapSphaerischToKartesisch.hpp */,
+				B3B0A5C025CB2103006F3FF0 /* MapKartesischToScreen.cpp */,
+				B3B0A5C125CB2103006F3FF0 /* MapKartesischToScreen.hpp */,
 			);
 			path = Panorama;
 			sourceTree = "<group>";
@@ -183,9 +193,11 @@
 				B3619BCD25C6F4A900CEAA61 /* MapKartesischToSphaerisch.cpp in Sources */,
 				B3919BEB25C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp in Sources */,
 				B3619BE125C77F6900CEAA61 /* Farbe.cpp in Sources */,
+				B3B0A5C625CB214A006F3FF0 /* ScreenKoordinaten.cpp in Sources */,
 				B3619BC525C6F34F00CEAA61 /* SphaerischeKoordinaten.cpp in Sources */,
 				B3619BD125C6F51800CEAA61 /* MapSphaerischToKartesisch.cpp in Sources */,
 				B3919BE025C823DB0047F7CC /* KugelTriangulation.cpp in Sources */,
+				B3B0A5C225CB2103006F3FF0 /* MapKartesischToScreen.cpp in Sources */,
 				B3619BB125C604C900CEAA61 /* main.cpp in Sources */,
 				B3619BC125C62FB800CEAA61 /* KartesischeKoordinaten.cpp in Sources */,
 				B3619BC925C6F46800CEAA61 /* util.cpp in Sources */,

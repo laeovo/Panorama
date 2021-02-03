@@ -23,5 +23,7 @@ const SphaerischeKoordinaten MapKartesischToSphaerisch::get(const KartesischeKoo
     const double lambda{atan2(yProjiziert, xProjiziert)};
     const double phi{asin(zProjiziert)};
     
+    assert(lambda > -M_PI/2 && lambda < M_PI/2);
+    
     return{lambda,phi};
 }

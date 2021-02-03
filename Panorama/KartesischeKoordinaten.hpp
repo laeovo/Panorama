@@ -8,6 +8,7 @@ public:
     KartesischeKoordinaten(const double x, const double y);
     const double getX() const;
     const double getY() const;
+    void print() const;
 private:
     double x;
     double y;

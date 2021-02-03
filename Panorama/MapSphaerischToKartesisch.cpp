@@ -12,18 +12,19 @@ const KartesischeKoordinaten MapSphaerischToKartesisch::get(const SphaerischeKoo
         assert(false);
         return {0, 0};
     }
-    const double hoeheMittelpunkt{this->suedpol/2};
+    const double radius{(this->durchmesser)/2};
+    assert(radius > 0);
     
-    const double x{cos(input.getLon())*cos(input.getLat())*hoeheMittelpunkt};
-    const double y{sin(input.getLon())*cos(input.getLat())*hoeheMittelpunkt};
-    const double z{-hoeheMittelpunkt + sin(input.getLat())*hoeheMittelpunkt};
+    const double x{sin(input.getLon())*cos(input.getLat())*radius};
+    const double y{-cos(input.getLon())*cos(input.getLat())*radius};
+    const double z{-radius + sin(input.getLat())*radius};
     
-    const double faktor{this->suedpol/(z+this->suedpol)};
+    const double faktor{this->durchmesser/(z-(-this->durchmesser))};
     return KartesischeKoordinaten(x*faktor, y*faktor);
 }
 
 const SphaerischeKoordinaten MapSphaerischToKartesisch::getUrbild(const KartesischeKoordinaten &input) const {
-    const double lon{atan2(input.getY(), input.getX())};
-    const double lat{M_PI/2-2*atan(sqrt(input.getX()*input.getX()+input.getY()*input.getY())/this->suedpol)};
+    const double lon{atan2(input.getX(), -input.getY())};
+    const double lat{M_PI/2-2*atan(sqrt(input.getX()*input.getX()+input.getY()*input.getY())/this->durchmesser)};
     return {lon, lat};
 }
