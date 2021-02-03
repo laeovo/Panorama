@@ -15,7 +15,7 @@ const KartesischeKoordinaten MapSphaerischToKartesisch::get(const SphaerischeKoo
     const double radius{(this->durchmesser)/2};
     assert(radius > 0);
     
-    const double x{sin(input.getLon())*cos(input.getLat())*radius};
+    const double x{-sin(input.getLon())*cos(input.getLat())*radius};
     const double y{-cos(input.getLon())*cos(input.getLat())*radius};
     const double z{-radius + sin(input.getLat())*radius};
     
