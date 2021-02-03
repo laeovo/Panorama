@@ -26,7 +26,7 @@ void quadratmalen(SDL_Renderer* renderer, const int x, const int y, const int au
 
 int main(int argc, const char * argv[]) {
     vector<SphaerischesBild> bilder{};
-    for (size_t i = 1; i <= 12; ++i) {
+    for (size_t i = 1; i <= 1; ++i) {
         string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
         dateiname.append(to_string(i));
         dateiname.append(".jpg");
@@ -37,10 +37,10 @@ int main(int argc, const char * argv[]) {
         bildSphaere.drehenImUZS(-0.05);
         bilder.push_back(bildSphaere);
     }
-    SphaerischesBild deckel{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/26.jpg", 16, 36};
-    deckel.tilt(M_PI/2);
-    deckel.pan(M_PI/2);
-    bilder.push_back(deckel);
+//    SphaerischesBild deckel{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/26.jpg", 16, 36};
+//    deckel.tilt(M_PI/2);
+//    deckel.pan(M_PI/2);
+//    bilder.push_back(deckel);
 
     const MapSphaerischToKartesisch map{};
     const int groesse{1024};

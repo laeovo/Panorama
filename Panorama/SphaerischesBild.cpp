@@ -1,65 +1,46 @@
 #include <chrono>
 #include <iostream>
 
+#define cimg_display 0
+#define cimg_use_jpeg
+
+#include "CImg.h"
 #include "SDL2/SDL.h"
 
 #include "Kartesische3DKoordinaten.hpp"
+#include "KartesischeKoordinaten.hpp"
 #include "SphaerischesBild.hpp"
 
 using namespace std;
 
-SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild) {
-    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
-    this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
-    const double aufloesungLon{2*M_PI / bild.width()};
-    const double aufloesungLat{M_PI / bild.height()};
-    unsigned int pixelcounter{0};
-    for (int i = 0; i < bild.width(); ++i) {
-        for (int j = 0; j < bild.height(); ++j) {
-            const SphaerischeKoordinaten koord{M_PI - i*aufloesungLon, -M_PI/2 + (bild.height()-j-1)*aufloesungLat};
-            const Farbe farbe{bild(i, j, 0, 0), bild(i, j, 0, 1), bild(i, j, 0, 2)};
-            this->bild[this->triangulation.getRegion(koord)].push_back({koord, farbe});
-            ++pixelcounter;
-        }
-    }
-    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
-    const chrono::duration<double> dauer{t1-t0};
-    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
-}
+//SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild) {
+//    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
+//    this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
+//    const double aufloesungLon{2*M_PI / bild.width()};
+//    const double aufloesungLat{M_PI / bild.height()};
+//    unsigned int pixelcounter{0};
+//    for (int i = 0; i < bild.width(); ++i) {
+//        for (int j = 0; j < bild.height(); ++j) {
+//            const SphaerischeKoordinaten koord{M_PI - i*aufloesungLon, -M_PI/2 + (bild.height()-j-1)*aufloesungLat};
+//            const Farbe farbe{bild(i, j, 0, 0), bild(i, j, 0, 1), bild(i, j, 0, 2)};
+//            this->bild[this->triangulation.getRegion(koord)].push_back({koord, farbe});
+//            ++pixelcounter;
+//        }
+//    }
+//    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
+//    const chrono::duration<double> dauer{t1-t0};
+//    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
+//}
 
-SphaerischesBild::SphaerischesBild(const string& dateiname, const double brennweite, const double sensorbreite) {
-    // TODO: (Teile hiervon) nach MapKartesischToSphaerisch bewegen?
+SphaerischesBild::SphaerischesBild(const string& dateiname, const double brennweite, const double sensorbreite) : mapKartToSpha(cimg_library::CImg<unsigned char>(dateiname.c_str()).width(), cimg_library::CImg<unsigned char>(dateiname.c_str()).height(), brennweite, sensorbreite) {
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     cimg_library::CImg<unsigned char> bild(dateiname.c_str());
     this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
-    const double seitenverhaeltnis{(0.+bild.height())/bild.width()};
-    const double gesichtsfeldDiagonal{2*atan(0.5*(sensorbreite*sqrt(1+pow(seitenverhaeltnis,2)))/brennweite)};
-    const double diagonalenlaenge{2*sin(0.5*gesichtsfeldDiagonal)};
-    const double projektionsebene{sqrt(1-pow(diagonalenlaenge/2,2))};
-    const double eckeObenLinksY{sqrt((1-pow(projektionsebene,2))/(pow(seitenverhaeltnis,2)+1))};
-    const double eckeObenLinksZ{eckeObenLinksY*seitenverhaeltnis};
-    const double eckeUntenRechtsY{-eckeObenLinksY};
-    const double eckeUntenRechtsZ{-eckeObenLinksZ};
     
     unsigned int pixelcounter{0};
     for (int i = 0; i < bild.width(); ++i) {
         for (int j = 0; j < bild.height(); ++j) {
-            // Kartesische Koordinaten berechnen
-            const double x{projektionsebene};
-            const double y{eckeObenLinksY+((0.+i)/bild.width())*(eckeUntenRechtsY-eckeObenLinksY)};
-            const double z{eckeObenLinksZ+((0.+j)/bild.height())*(eckeUntenRechtsZ-eckeObenLinksZ)};
-            
-            // projizierte Koordinaten berechnen
-            const double faktor{1/sqrt(pow(x,2)+pow(y,2)+pow(z,2))};
-            const double xProjiziert{x*faktor};
-            const double yProjiziert{y*faktor};
-            const double zProjiziert{z*faktor};
-            
-            // spährische Koordinaten berechnen
-            const double lambda{atan2(yProjiziert, xProjiziert)};
-            const double phi{asin(zProjiziert)};
-            
-            const SphaerischeKoordinaten koord{lambda,phi};
+            const SphaerischeKoordinaten koord{this->mapKartToSpha.get({i+0., j+0.})};
             const Farbe farbe{bild(i, j, 0, 0), bild(i, j, 0, 1), bild(i, j, 0, 2)};
             this->bild[this->triangulation.getRegion(koord)].push_back({koord, farbe});
             ++pixelcounter;
@@ -147,6 +128,9 @@ void SphaerischesBild::pan(const double winkel) {
             pixel.first = {pixel.first.getLon() + winkel, pixel.first.getLat()};
         }
     }
+    for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
+        marker.first = {marker.first.getLon() + winkel, marker.first.getLat()};
+    }
     this->lon += winkel;
     this->pixelAufRegionenAufteilen();
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
@@ -165,6 +149,13 @@ void SphaerischesBild::tilt(const double winkel) {
             const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
             spha = {atan2(neu.y, neu.x), asin(neu.z)};
         }
+    }
+    for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
+        SphaerischeKoordinaten& spha{marker.first};
+        const Kartesische3DKoordinaten drehachse{sin(this->lon), -cos(this->lat), 0};
+        const Kartesische3DKoordinaten alt{cos(spha.getLon())*cos(spha.getLat()), sin(spha.getLon())*cos(spha.getLat()), sin(spha.getLat())};
+        const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
+        spha = {atan2(neu.y, neu.x), asin(neu.z)};
     }
     this->lon += winkel; // TODO: Nochmal überlegen
     this->pixelAufRegionenAufteilen();
@@ -185,6 +176,13 @@ void SphaerischesBild::drehenImUZS(const double winkel) {
             spha = {atan2(neu.y, neu.x), asin(neu.z)};
         }
     }
+    for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
+        SphaerischeKoordinaten& spha{marker.first};
+        const Kartesische3DKoordinaten drehachse{-cos(this->lon)*cos(this->lat), -sin(this->lon)*cos(this->lat), -sin(this->lat)};
+        const Kartesische3DKoordinaten alt{cos(spha.getLon())*cos(spha.getLat()), sin(spha.getLon())*cos(spha.getLat()), sin(spha.getLat())};
+        const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
+        spha = {atan2(neu.y, neu.x), asin(neu.z)};
+    }
     this->pixelAufRegionenAufteilen();
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer {t1-t0};
@@ -195,6 +193,28 @@ void SphaerischesBild::zentrumVerschieben(const SphaerischeKoordinaten& neuesZen
     this->lon = neuesZentrum.getLon();
     this->lat = neuesZentrum.getLat();
 }
+
+void SphaerischesBild::markerHinzufuegen(const KartesischeKoordinaten& koord, const std::string& name) {
+    this->markerHinzufuegen(this->mapKartToSpha.get(koord), name);
+}
+
+void SphaerischesBild::markerHinzufuegen(const SphaerischeKoordinaten& koord, const string& name) {
+    this->marker.push_back({koord, name});
+}
+
+const std::pair<SphaerischeKoordinaten, std::string>* const SphaerischesBild::getMarker(const std::string& name) const {
+    for (const pair<SphaerischeKoordinaten, string>& marker : this->marker) {
+        if (marker.second == name) {
+            return &marker;
+        }
+    }
+    cout << "Kein Marker mit dem Namen '" << name << "' gefunden :/" << endl;
+    return NULL;
+}
+
+
+
+
 
 void SphaerischesBild::pixelAufRegionenAufteilen() {
     vector<pair<SphaerischeKoordinaten, Farbe>> pixelZwischenspeicher{};
