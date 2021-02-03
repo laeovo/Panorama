@@ -24,7 +24,7 @@ const KartesischeKoordinaten MapSphaerischToKartesisch::get(const SphaerischeKoo
 }
 
 const SphaerischeKoordinaten MapSphaerischToKartesisch::getUrbild(const KartesischeKoordinaten &input) const {
-    const double lon{atan2(input.getX(), -input.getY())};
+    const double lon{atan2(-input.getX(), -input.getY())};
     const double lat{M_PI/2-2*atan(sqrt(input.getX()*input.getX()+input.getY()*input.getY())/this->durchmesser)};
     return {lon, lat};
 }
