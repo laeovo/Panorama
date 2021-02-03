@@ -38,6 +38,7 @@ private:
     const MapKartesischToSphaerisch mapKartToSpha;
     double lon{0}; // Hiermit sind die Koordinaten des Bildreferenzpunkts gemeint. Initial in der Bildmitte.
     double lat{0}; // Hiermit sind die Koordinaten des Bildreferenzpunkts gemeint. Initial in der Bildmitte.
+    bool wurdeTransformiert = false;
     
     void pixelAufRegionenAufteilen();
 };

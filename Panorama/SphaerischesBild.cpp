@@ -135,6 +135,7 @@ void SphaerischesBild::pan(const double winkel) {
     this->pixelAufRegionenAufteilen();
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer {t1-t0};
+    this->wurdeTransformiert = true;
     cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
 }
 
@@ -161,6 +162,7 @@ void SphaerischesBild::tilt(const double winkel) {
     this->pixelAufRegionenAufteilen();
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer {t1-t0};
+    this->wurdeTransformiert = true;
     cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
 }
 
@@ -186,6 +188,7 @@ void SphaerischesBild::drehenImUZS(const double winkel) {
     this->pixelAufRegionenAufteilen();
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer {t1-t0};
+    this->wurdeTransformiert = true;
     cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
 }
 
@@ -199,6 +202,7 @@ void SphaerischesBild::markerHinzufuegen(const KartesischeKoordinaten& koord, co
 }
 
 void SphaerischesBild::markerHinzufuegen(const SphaerischeKoordinaten& koord, const string& name) {
+    assert(!this->wurdeTransformiert);
     this->marker.push_back({koord, name});
 }
 
