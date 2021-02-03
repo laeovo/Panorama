@@ -28,13 +28,13 @@ void quadratmalen(SDL_Renderer* renderer, const int x, const int y, const int au
 
 int main(int argc, const char * argv[]) {
     
-//    const KartesischeKoordinaten marker1_bild1{1123, 534}; // Hausspitze
-//    const KartesischeKoordinaten marker2_bild1{1165, 1093}; // 30. vertikale Strebe
-//    const KartesischeKoordinaten marker1_bild2{854, 569};
-//    const KartesischeKoordinaten marker2_bild2{887, 1064};
+    const KartesischeKoordinaten marker1_bild1{1123, 534}; // Hausspitze
+    const KartesischeKoordinaten marker2_bild1{1165, 1093}; // 30. vertikale Strebe
+    const KartesischeKoordinaten marker1_bild2{854, 569};
+    const KartesischeKoordinaten marker2_bild2{887, 1064};
     
     vector<SphaerischesBild> bilder{};
-    for (size_t i = 1; i <= 1; ++i) {
+    for (size_t i = 1; i <= 2; ++i) {
         string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
         dateiname.append(to_string(i));
         dateiname.append(".jpg");
@@ -46,13 +46,13 @@ int main(int argc, const char * argv[]) {
         bilder.push_back(bildSphaere);
     }
     
-//    bilder[0].markerHinzufuegen(marker1_bild1, "Hausspitze");
-//    bilder[0].markerHinzufuegen(marker2_bild1, "30. Strebe");
-//    bilder[1].markerHinzufuegen(marker1_bild2, "Hausspitze");
-//    bilder[1].markerHinzufuegen(marker2_bild2, "30. Strebe");
+    bilder[0].markerHinzufuegen(marker1_bild1, "Hausspitze");
+    bilder[0].markerHinzufuegen(marker2_bild1, "30. Strebe");
+    bilder[1].markerHinzufuegen(marker1_bild2, "Hausspitze");
+    bilder[1].markerHinzufuegen(marker2_bild2, "30. Strebe");
     
-//    bilder[1].pan(bilder[0].getMarker("Hausspitze")->first.getLon() - bilder[0].getMarker("30. Strebe")->first.getLon());
-//    bilder[1].tilt(-bilder[0].getMarker("Hausspitze")->first.getLat() + bilder[0].getMarker("30. Strebe")->first.getLat());
+    bilder[1].pan(bilder[0].getMarker("Hausspitze")->first.getLon() - bilder[1].getMarker("Hausspitze")->first.getLon());
+    bilder[1].tilt(bilder[0].getMarker("Hausspitze")->first.getLat() - bilder[1].getMarker("Hausspitze")->first.getLat());
 
     const int groesse{1024};
     const MapSphaerischToKartesisch mapSphaToKart2D{};
@@ -90,18 +90,18 @@ int main(int argc, const char * argv[]) {
         }
     }
     
-//    const SphaerischeKoordinaten& marker1_bild1_spha{bilder[0].getMarker("Hausspitze")->first};
-//    const SphaerischeKoordinaten& marker1_bild2_spha{bilder[1].getMarker("Hausspitze")->first};
-//    const SphaerischeKoordinaten& marker2_bild1_spha{bilder[0].getMarker("30. Strebe")->first};
-//    const SphaerischeKoordinaten& marker2_bild2_spha{bilder[1].getMarker("30. Strebe")->first};
-//    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-//    marker1_bild1_spha.print();
+    const ScreenKoordinaten marker1bild1screen{mapKart2DToScreen.get(mapSphaToKart2D.get(bilder[0].getMarker("Hausspitze")->first))};
+    const ScreenKoordinaten marker1bild2screen{mapKart2DToScreen.get(mapSphaToKart2D.get(bilder[1].getMarker("Hausspitze")->first))};
+    const ScreenKoordinaten marker2bild1screen{mapKart2DToScreen.get(mapSphaToKart2D.get(bilder[0].getMarker("30. Strebe")->first))};
+    const ScreenKoordinaten marker2bild2screen{mapKart2DToScreen.get(mapSphaToKart2D.get(bilder[1].getMarker("30. Strebe")->first))};
+    
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 //    cout << mapSphaToKart2D.get(marker1_bild1_spha).getX() << " " << -mapSphaToKart2D.get(marker1_bild1_spha).getY() << endl;
-//    quadratmalen(renderer, mapSphaToKart2D.get(marker1_bild1_spha).getX(), -mapSphaToKart2D.get(marker1_bild1_spha).getY(), 3);
-//    quadratmalen(renderer, mapSphaToKart2D.get(marker1_bild2_spha).getX(), -mapSphaToKart2D.get(marker1_bild2_spha).getY(), 3);
-//    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-//    quadratmalen(renderer, mapSphaToKart2D.get(marker2_bild1_spha).getX(), -mapSphaToKart2D.get(marker2_bild1_spha).getY(), 3);
-//    quadratmalen(renderer, mapSphaToKart2D.get(marker2_bild2_spha).getX(), -mapSphaToKart2D.get(marker2_bild2_spha).getY(), 3);
+    quadratmalen(renderer, marker1bild1screen.getX(), marker1bild1screen.getY(), 3);
+    quadratmalen(renderer, marker1bild2screen.getX(), marker1bild2screen.getY(), 3);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+    quadratmalen(renderer, marker2bild1screen.getX(), marker2bild1screen.getY(), 3);
+    quadratmalen(renderer, marker2bild2screen.getX(), marker2bild2screen.getY(), 3);
     SDL_RenderPresent(renderer);
     
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
