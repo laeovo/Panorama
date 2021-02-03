@@ -5,11 +5,6 @@
 #include <string>
 #include <vector>
 
-//#define cimg_display 0
-//#define cimg_use_jpeg
-//
-//#include "CImg.h"
-
 #include "Farbe.hpp"
 #include "KugelTriangulation.hpp"
 #include "MapKartesischToSphaerisch.hpp"
@@ -19,7 +14,6 @@ class KartesischeKoordinaten;
 
 class SphaerischesBild {
 public:
-//    SphaerischesBild(cimg_library::CImg<unsigned char> bild);
     SphaerischesBild(const std::string& dateiname, const double brennweite, const double sensorbreite);
     const Farbe get(const SphaerischeKoordinaten& koordinaten) const;
     void print() const;

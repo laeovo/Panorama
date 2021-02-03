@@ -13,25 +13,6 @@
 
 using namespace std;
 
-//SphaerischesBild::SphaerischesBild(cimg_library::CImg<unsigned char> bild) {
-//    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
-//    this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
-//    const double aufloesungLon{2*M_PI / bild.width()};
-//    const double aufloesungLat{M_PI / bild.height()};
-//    unsigned int pixelcounter{0};
-//    for (int i = 0; i < bild.width(); ++i) {
-//        for (int j = 0; j < bild.height(); ++j) {
-//            const SphaerischeKoordinaten koord{M_PI - i*aufloesungLon, -M_PI/2 + (bild.height()-j-1)*aufloesungLat};
-//            const Farbe farbe{bild(i, j, 0, 0), bild(i, j, 0, 1), bild(i, j, 0, 2)};
-//            this->bild[this->triangulation.getRegion(koord)].push_back({koord, farbe});
-//            ++pixelcounter;
-//        }
-//    }
-//    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
-//    const chrono::duration<double> dauer{t1-t0};
-//    cout << "Sphärisches Bild erstellt: " << pixelcounter << " Pixel in " << this->triangulation.getAnzahlRegionen() << " Regionen (" << dauer.count() << " Sekunden)" << endl;
-//}
-
 SphaerischesBild::SphaerischesBild(const string& dateiname, const double brennweite, const double sensorbreite) : mapKartToSpha(cimg_library::CImg<unsigned char>(dateiname.c_str()).width(), cimg_library::CImg<unsigned char>(dateiname.c_str()).height(), brennweite, sensorbreite) {
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     cimg_library::CImg<unsigned char> bild(dateiname.c_str());
