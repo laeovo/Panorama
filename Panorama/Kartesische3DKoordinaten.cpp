@@ -15,7 +15,7 @@ Kartesische3DKoordinaten::Kartesische3DKoordinaten(const SphaerischeKoordinaten&
 Kartesische3DKoordinaten::Kartesische3DKoordinaten(const Kartesische3DKoordinaten& ort1, const Kartesische3DKoordinaten& ort2) : x(ort1.y*ort2.z-ort1.z*ort2.y), y(ort1.z*ort2.x-ort1.x*ort2.z), z(ort1.x*ort2.y-ort1.y*ort2.x) {}
 
 const SphaerischeKoordinaten Kartesische3DKoordinaten::toSphaerisch() const {
-    return {atan2(this->y, this->x), asin(this->z/sqrt(this->x*this->x+this->y*this->y+this->z*this->z))};
+    return {atan2(this->y, this->x), asin(this->z/this->getLaenge())};
 }
 
 const Kartesische3DKoordinaten Kartesische3DKoordinaten::operator-(const Kartesische3DKoordinaten& other) const {
@@ -23,7 +23,7 @@ const Kartesische3DKoordinaten Kartesische3DKoordinaten::operator-(const Kartesi
 }
 
 const double Kartesische3DKoordinaten::getLaenge() const {
-    return sqrt(pow(this->x, 2)+pow(this->y, 2)+pow(this->z, 2));
+    return sqrt(this->x*this->x+this->y*this->y+this->z*this->z);
 }
 
 const Kartesische3DKoordinaten Kartesische3DKoordinaten::normiert() const {
@@ -36,7 +36,7 @@ void Kartesische3DKoordinaten::print() const {
 
 const Kartesische3DKoordinaten rotationGegenUZS(const Kartesische3DKoordinaten& input, const Kartesische3DKoordinaten& rotationsvektor, const double winkel) {
     const Kartesische3DKoordinaten& n{rotationsvektor};
-    const double laenge{sqrt(n.x*n.x+n.y*n.y+n.z*n.z)};
+    const double laenge{n.getLaenge()};
     const double n_1{n.x/laenge};
     const double n_2{n.y/laenge};
     const double n_3{n.z/laenge};
