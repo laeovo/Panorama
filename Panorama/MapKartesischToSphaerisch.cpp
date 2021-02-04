@@ -13,7 +13,7 @@ const SphaerischeKoordinaten MapKartesischToSphaerisch::get(const KartesischeKoo
     const double y{this->eckeObenLinksY+((0.+input.getX())/this->aufloesungX)*(this->eckeUntenRechtsY-this->eckeObenLinksY)};
     const double z{this->eckeObenLinksZ+((0.+input.getY())/this->aufloesungY)*(this->eckeUntenRechtsZ-this->eckeObenLinksZ)};
     
-    // TODO: Verzeichnung korrigieren :(((((
+    // TODO: Verzeichnung korrigieren?
     
     // projizierte Koordinaten berechnen
     const double faktor{1/sqrt(pow(x,2)+pow(y,2)+pow(z,2))};
@@ -24,8 +24,6 @@ const SphaerischeKoordinaten MapKartesischToSphaerisch::get(const KartesischeKoo
     // spährische Koordinaten berechnen
     const double lambda{atan2(yProjiziert, xProjiziert)};
     const double phi{asin(zProjiziert)};
-    
-    assert(lambda > -M_PI/2 && lambda < M_PI/2);
     
     return{lambda,phi};
 }

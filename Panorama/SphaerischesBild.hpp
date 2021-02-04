@@ -20,6 +20,7 @@ public:
     void pan(const double winkel);
     void tilt(const double winkel);
     void drehenImUZS(const double winkel);
+    void ausrichten(const SphaerischeKoordinaten& marker1, const SphaerischeKoordinaten& marker2, const SphaerischeKoordinaten& referenz1, const SphaerischeKoordinaten& referenz2);
     void zentrumVerschieben(const SphaerischeKoordinaten& neuesZentrum);
     void markerHinzufuegen(const KartesischeKoordinaten& koord, const std::string& name);
     void markerHinzufuegen(const SphaerischeKoordinaten& koord, const std::string& name);

@@ -102,7 +102,7 @@ void SphaerischesBild::print() const {
 }
 
 void SphaerischesBild::pan(const double winkel) {
-    cout << "Pan... ";
+    cout << "Pan..." << endl;
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     for (vector<pair<SphaerischeKoordinaten, Farbe>>& region : this->bild) {
         for (pair<SphaerischeKoordinaten, Farbe>& pixel : region) {
@@ -121,23 +121,22 @@ void SphaerischesBild::pan(const double winkel) {
 }
 
 void SphaerischesBild::tilt(const double winkel) {
-    cout << "Tilt... ";
+    cout << "Tilt..." << endl;
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
+    const Kartesische3DKoordinaten drehachse{sin(this->lon), -cos(this->lat), 0};
     for (vector<pair<SphaerischeKoordinaten, Farbe>>& region : this->bild) {
         for (pair<SphaerischeKoordinaten, Farbe>& pixel : region) {
             SphaerischeKoordinaten& spha{pixel.first};
-            const Kartesische3DKoordinaten drehachse{sin(this->lon), -cos(this->lat), 0};
-            const Kartesische3DKoordinaten alt{cos(spha.getLon())*cos(spha.getLat()), sin(spha.getLon())*cos(spha.getLat()), sin(spha.getLat())};
+            const Kartesische3DKoordinaten alt{spha};
             const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
-            spha = {atan2(neu.y, neu.x), asin(neu.z)};
+            spha = neu.toSphaerisch();
         }
     }
     for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
         SphaerischeKoordinaten& spha{marker.first};
-        const Kartesische3DKoordinaten drehachse{sin(this->lon), -cos(this->lat), 0};
-        const Kartesische3DKoordinaten alt{cos(spha.getLon())*cos(spha.getLat()), sin(spha.getLon())*cos(spha.getLat()), sin(spha.getLat())};
+        const Kartesische3DKoordinaten alt{spha};
         const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
-        spha = {atan2(neu.y, neu.x), asin(neu.z)};
+        spha = neu.toSphaerisch();
     }
     this->lon += winkel; // TODO: Nochmal überlegen
     this->pixelAufRegionenAufteilen();
@@ -148,28 +147,89 @@ void SphaerischesBild::tilt(const double winkel) {
 }
 
 void SphaerischesBild::drehenImUZS(const double winkel) {
-    cout << "Drehen... ";
+    cout << "Drehen..." << endl;
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
+    const Kartesische3DKoordinaten drehachse{-cos(this->lon)*cos(this->lat), -sin(this->lon)*cos(this->lat), -sin(this->lat)};
     for (vector<pair<SphaerischeKoordinaten, Farbe>>& region : this->bild) {
         for (pair<SphaerischeKoordinaten, Farbe>& pixel : region) {
             SphaerischeKoordinaten& spha{pixel.first};
-            const Kartesische3DKoordinaten drehachse{-cos(this->lon)*cos(this->lat), -sin(this->lon)*cos(this->lat), -sin(this->lat)};
-            const Kartesische3DKoordinaten alt{cos(spha.getLon())*cos(spha.getLat()), sin(spha.getLon())*cos(spha.getLat()), sin(spha.getLat())};
+            const Kartesische3DKoordinaten alt{spha};
             const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
-            spha = {atan2(neu.y, neu.x), asin(neu.z)};
+            spha = neu.toSphaerisch();
         }
     }
     for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
         SphaerischeKoordinaten& spha{marker.first};
-        const Kartesische3DKoordinaten drehachse{-cos(this->lon)*cos(this->lat), -sin(this->lon)*cos(this->lat), -sin(this->lat)};
-        const Kartesische3DKoordinaten alt{cos(spha.getLon())*cos(spha.getLat()), sin(spha.getLon())*cos(spha.getLat()), sin(spha.getLat())};
+        const Kartesische3DKoordinaten alt{spha};
         const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
-        spha = {atan2(neu.y, neu.x), asin(neu.z)};
+        spha = neu.toSphaerisch();
     }
     this->pixelAufRegionenAufteilen();
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer {t1-t0};
     this->wurdeTransformiert = true;
+    cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
+}
+
+void SphaerischesBild::ausrichten(const SphaerischeKoordinaten& marker1, const SphaerischeKoordinaten& marker2, const SphaerischeKoordinaten& referenz1, const SphaerischeKoordinaten& referenz2) {
+    cout << "Ausrichten... (1/2)" << endl;
+    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
+    const Kartesische3DKoordinaten drehachse1{Kartesische3DKoordinaten(marker1), Kartesische3DKoordinaten(referenz1)};
+    const double winkel1{marker1.angularDistance(referenz1)};
+    for (vector<pair<SphaerischeKoordinaten, Farbe>>& region : this->bild) {
+        for (pair<SphaerischeKoordinaten, Farbe>& pixel : region) {
+            SphaerischeKoordinaten& spha{pixel.first};
+            const Kartesische3DKoordinaten alt{spha};
+            const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse1, winkel1)};
+            spha = neu.toSphaerisch();
+        }
+    }
+    const SphaerischeKoordinaten marker2NachErsterDrehung{rotationGegenUZS({marker2}, drehachse1, winkel1).toSphaerisch()};
+    for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
+        SphaerischeKoordinaten& spha{marker.first};
+        const Kartesische3DKoordinaten alt{spha};
+        const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse1, winkel1)};
+        spha = neu.toSphaerisch();
+    }
+    this->pixelAufRegionenAufteilen();
+    // TODO: an dieser Stelle müssen marker1' und referenz1 gleich sein. Checken.
+    
+    cout << "Ausrichten... (2/2)" << endl;
+    this->zentrumVerschieben(referenz1);
+    const Kartesische3DKoordinaten drehachse2{referenz1};
+    const double alpha{winkelZwischenVektoren({referenz1}, {referenz2})};
+    const double abschnittAufDrehachse{acos(alpha)};
+    const Kartesische3DKoordinaten referenz1Kart{referenz1};
+    const Kartesische3DKoordinaten punktAufDrehachse{referenz1Kart.x*abschnittAufDrehachse, referenz1Kart.y*abschnittAufDrehachse, referenz1Kart.z*abschnittAufDrehachse};
+    const Kartesische3DKoordinaten richtungsvektorMarker2{Kartesische3DKoordinaten(marker2NachErsterDrehung)-punktAufDrehachse};
+    const Kartesische3DKoordinaten richtungsvektorReferenz2{Kartesische3DKoordinaten(referenz2)-punktAufDrehachse};
+    const Kartesische3DKoordinaten drehachse2AusMarkern{richtungsvektorMarker2, richtungsvektorReferenz2};
+    double winkel2{winkelZwischenVektoren(richtungsvektorMarker2, richtungsvektorReferenz2)};
+    if (skalarprodukt(drehachse2, drehachse2AusMarkern) > 0) {
+        // gegen den UZS drehen
+    }
+    else {
+        // im UZS drehen
+        winkel2 *= -1;
+    }
+    for (vector<pair<SphaerischeKoordinaten, Farbe>>& region : this->bild) {
+        for (pair<SphaerischeKoordinaten, Farbe>& pixel : region) {
+            SphaerischeKoordinaten& spha{pixel.first};
+            const Kartesische3DKoordinaten alt{spha};
+            const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse2, winkel2)};
+            spha = neu.toSphaerisch();
+        }
+    }
+    for (pair<SphaerischeKoordinaten, string>& marker : this->marker) {
+        SphaerischeKoordinaten& spha{marker.first};
+        const Kartesische3DKoordinaten alt{spha};
+        const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse2, winkel2)};
+        spha = {atan2(neu.y, neu.x), asin(neu.z)};
+    }
+    this->pixelAufRegionenAufteilen();
+    
+    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
+    const chrono::duration<double> dauer {t1-t0};
     cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
 }
 
