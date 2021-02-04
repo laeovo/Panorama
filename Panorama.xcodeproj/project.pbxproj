@@ -21,6 +21,7 @@
 		B3919BEB25C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3919BE925C9B82A0047F7CC /* Kartesische3DKoordinaten.cpp */; };
 		B3B0A5C225CB2103006F3FF0 /* MapKartesischToScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B0A5C025CB2103006F3FF0 /* MapKartesischToScreen.cpp */; };
 		B3B0A5C625CB214A006F3FF0 /* ScreenKoordinaten.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B0A5C425CB214A006F3FF0 /* ScreenKoordinaten.cpp */; };
+		B3B0A5CC25CC0572006F3FF0 /* Marker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B0A5CA25CC0572006F3FF0 /* Marker.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +63,8 @@
 		B3B0A5C125CB2103006F3FF0 /* MapKartesischToScreen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapKartesischToScreen.hpp; sourceTree = "<group>"; };
 		B3B0A5C425CB214A006F3FF0 /* ScreenKoordinaten.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenKoordinaten.cpp; sourceTree = "<group>"; };
 		B3B0A5C525CB214A006F3FF0 /* ScreenKoordinaten.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenKoordinaten.hpp; sourceTree = "<group>"; };
+		B3B0A5CA25CC0572006F3FF0 /* Marker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Marker.cpp; sourceTree = "<group>"; };
+		B3B0A5CB25CC0572006F3FF0 /* Marker.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Marker.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				B3619BB025C604C900CEAA61 /* main.cpp */,
+				B3B0A5CA25CC0572006F3FF0 /* Marker.cpp */,
+				B3B0A5CB25CC0572006F3FF0 /* Marker.hpp */,
 				B3919BDE25C823DB0047F7CC /* KugelTriangulation.cpp */,
 				B3919BDF25C823DB0047F7CC /* KugelTriangulation.hpp */,
 				B3619BDB25C77F1B00CEAA61 /* SphaerischesBild.cpp */,
@@ -199,6 +204,7 @@
 				B3919BE025C823DB0047F7CC /* KugelTriangulation.cpp in Sources */,
 				B3B0A5C225CB2103006F3FF0 /* MapKartesischToScreen.cpp in Sources */,
 				B3619BB125C604C900CEAA61 /* main.cpp in Sources */,
+				B3B0A5CC25CC0572006F3FF0 /* Marker.cpp in Sources */,
 				B3619BC125C62FB800CEAA61 /* KartesischeKoordinaten.cpp in Sources */,
 				B3619BC925C6F46800CEAA61 /* util.cpp in Sources */,
 			);

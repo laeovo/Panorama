@@ -12,6 +12,7 @@
 #include "KartesischeKoordinaten.hpp"
 #include "MapKartesischToScreen.hpp"
 #include "MapSphaerischToKartesisch.hpp"
+#include "Marker.hpp"
 #include "ScreenKoordinaten.hpp"
 #include "SphaerischeKoordinaten.hpp"
 #include "SphaerischesBild.hpp"
@@ -27,18 +28,9 @@ void quadratmalen(SDL_Renderer* renderer, const int x, const int y, const int au
 }
 
 int main(int argc, const char * argv[]) {
-    
-    const KartesischeKoordinaten marker1_bild1{1125, 532}; // Hausspitze
-    const KartesischeKoordinaten marker1_bild2{852, 572};
-    const KartesischeKoordinaten marker2_bild1{1165, 1092}; // 30. vertikale Strebe
-    const KartesischeKoordinaten marker2_bild2{882, 1062};
-    const KartesischeKoordinaten marker3_bild2{1145, 697}; // Untere rechte Ecke des Schrägdachs
-    const KartesischeKoordinaten marker3_bild3{653, 722};
-    const KartesischeKoordinaten marker4_bild2{1152, 1066}; // Vertikale Strebe mit schrägem Zweig
-    const KartesischeKoordinaten marker4_bild3{659, 1028};
-    
+    const size_t anzahlBilder{5};
     vector<SphaerischesBild> bilder{};
-    for (size_t i = 1; i <= 3; ++i) {
+    for (size_t i = 1; i <= anzahlBilder; ++i) {
         string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
         dateiname.append(to_string(i));
         dateiname.append(".jpg");
@@ -50,17 +42,29 @@ int main(int argc, const char * argv[]) {
         bilder.push_back(bildSphaere);
     }
     
-    bilder[0].markerHinzufuegen(marker1_bild1, "Hausspitze");
-    bilder[1].markerHinzufuegen(marker1_bild2, "Hausspitze");
-    bilder[0].markerHinzufuegen(marker2_bild1, "30. Strebe");
-    bilder[1].markerHinzufuegen(marker2_bild2, "30. Strebe");
-    bilder[1].markerHinzufuegen(marker3_bild2, "Dachecke");
-    bilder[2].markerHinzufuegen(marker3_bild3, "Dachecke");
-    bilder[1].markerHinzufuegen(marker4_bild2, "Strebe mit schraegem Zweig");
-    bilder[2].markerHinzufuegen(marker4_bild3, "Strebe mit schraegem Zweig");
+    vector<vector<pair<MarkerKartesisch, MarkerKartesisch>>> kartesischeMarker(anzahlBilder);
+    kartesischeMarker[0].push_back({MarkerKartesisch("Hausspitze", {1125, 532}), MarkerKartesisch("30. Strebe", {1165, 1092})});
+    kartesischeMarker[1].push_back({MarkerKartesisch("Hausspitze", {852, 572}), MarkerKartesisch("30. Strebe", {882, 1062})});
     
-    bilder[1].ausrichten(bilder[1].getMarker("Hausspitze")->first, bilder[1].getMarker("30. Strebe")->first, bilder[0].getMarker("Hausspitze")->first, bilder[0].getMarker("30. Strebe")->first);
-    bilder[2].ausrichten(bilder[2].getMarker("Dachecke")->first, bilder[2].getMarker("Strebe mit schraegem Zweig")->first, bilder[1].getMarker("Dachecke")->first, bilder[1].getMarker("Strebe mit schraegem Zweig")->first);
+    kartesischeMarker[1].push_back({MarkerKartesisch("Dachecke", {1145, 697}), MarkerKartesisch("Strebe mit schraegem Zweig", {1152, 1066})});
+    kartesischeMarker[2].push_back({MarkerKartesisch("Dachecke", {653, 722}), MarkerKartesisch("Strebe mit schraegem Zweig", {659, 1028})});
+
+    kartesischeMarker[2].push_back({MarkerKartesisch("Balkonecke", {1186, 565}), MarkerKartesisch("Handlaufkurve", {1138, 926})});
+    kartesischeMarker[3].push_back({MarkerKartesisch("Balkonecke", {702, 618}), MarkerKartesisch("Handlaufkurve", {670, 913})});
+
+    kartesischeMarker[3].push_back({MarkerKartesisch("L", {1070, 549}), MarkerKartesisch("Gelaender Meets Baum", {1162, 932})});
+    kartesischeMarker[4].push_back({MarkerKartesisch("L", {594, 588}), MarkerKartesisch("Gelaender Meets Baum", {660, 917})});
+    
+    for (size_t i = 0; i < kartesischeMarker.size(); ++i) {
+        for (const pair<MarkerKartesisch, MarkerKartesisch>& markerpaar : kartesischeMarker[i]) {
+            bilder[i].markerHinzufuegen(markerpaar.first);
+            bilder[i].markerHinzufuegen(markerpaar.second);
+        }
+    }
+    
+    for (size_t i = 1; i < kartesischeMarker.size(); ++i) {
+        bilder[i].ausrichten(bilder[i].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i].getMarker(kartesischeMarker[i][0].second.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].second.getName())->getKoord());
+    }
 
     const int groesse{1024};
     const MapSphaerischToKartesisch mapSphaToKart2D{};
