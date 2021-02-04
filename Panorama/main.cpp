@@ -41,9 +41,8 @@ int main(int argc, const char * argv[]) {
     srand(0);
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     
-    const size_t anzahlBilder{12};
     vector<SphaerischesBild> bilder{};
-    for (size_t i = 1; i <= anzahlBilder; ++i) {
+    for (size_t i = 1; i <= 23; ++i) {
         string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
         dateiname.append(to_string(i));
         dateiname.append(".jpg");
@@ -54,8 +53,9 @@ int main(int argc, const char * argv[]) {
 //        bildSphaere.drehenImUZS(-0.05);
         bilder.push_back(bildSphaere);
     }
+    bilder.push_back({"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/deckel.jpg", 16, 24});
     
-    vector<vector<pair<MarkerKartesisch, MarkerKartesisch>>> kartesischeMarker(anzahlBilder);
+    vector<vector<pair<MarkerKartesisch, MarkerKartesisch>>> kartesischeMarker(25);
     kartesischeMarker[0].push_back({MarkerKartesisch("Hausspitze", {1125, 532}), MarkerKartesisch("30. Strebe", {1165, 1092})});
     kartesischeMarker[1].push_back({MarkerKartesisch("Hausspitze", {852, 572}), MarkerKartesisch("30. Strebe", {882, 1062})});
     
@@ -89,19 +89,51 @@ int main(int argc, const char * argv[]) {
     kartesischeMarker[10].push_back({MarkerKartesisch("Crisscross", {1104, 382}), MarkerKartesisch("Litfasssaeule", {1090, 894})});
     kartesischeMarker[11].push_back({MarkerKartesisch("Crisscross", {642, 448}), MarkerKartesisch("Litfasssaeule", {633, 887})});
     
+//    kartesischeMarker[12].push_back({MarkerKartesisch("Hausspitze", {1029, 1091}), MarkerKartesisch("UmgekehrtesV", {991, 302})});
+    
+    kartesischeMarker[13].push_back({MarkerKartesisch("Hausspitze", {589, 1145}), MarkerKartesisch("Dachecke", {855, 1278})});
+    
+    kartesischeMarker[14].push_back({MarkerKartesisch("Dachecke", {393, 1294}), MarkerKartesisch("Balkonecke", {868, 1157})});
+    
+    kartesischeMarker[15].push_back({MarkerKartesisch("Balkonecke", {434, 1179}), MarkerKartesisch("L", {756, 1138})});
+    
+    kartesischeMarker[16].push_back({MarkerKartesisch("L", {345, 1142}), MarkerKartesisch("DachgiebelMeetsBaum", {802, 1170})});
+    
+    kartesischeMarker[17].push_back({MarkerKartesisch("DachgiebelMeetsBaum", {365, 1179}), MarkerKartesisch("Baumdelle", {828, 1180})});
+    
+    kartesischeMarker[18].push_back({MarkerKartesisch("Baumdelle", {391, 1195}), MarkerKartesisch("Zweiggabelung", {779, 1011})});
+    
+    kartesischeMarker[19].push_back({MarkerKartesisch("Zweiggabelung", {411, 1024}), MarkerKartesisch("Zweiggabelung2", {801, 984})});
+    
+    kartesischeMarker[20].push_back({MarkerKartesisch("Zweiggabelung2", {414, 998}), MarkerKartesisch("DafuqZweig", {797, 1150})});
+    
+    kartesischeMarker[21].push_back({MarkerKartesisch("DafuqZweig", {380, 1161}), MarkerKartesisch("Neunerfenster", {810, 1122})});
+    
+    kartesischeMarker[22].push_back({MarkerKartesisch("Neunerfenster", {381, 1135}), MarkerKartesisch("Crisscross", {770, 1014})});
+    
     for (size_t i = 0; i < kartesischeMarker.size(); ++i) {
         for (const pair<MarkerKartesisch, MarkerKartesisch>& markerpaar : kartesischeMarker[i]) {
             bilder[i].markerHinzufuegen(markerpaar.first);
             bilder[i].markerHinzufuegen(markerpaar.second);
         }
     }
+    bilder[13].markerHinzufuegen(MarkerKartesisch("Deckel1", {393, 470}));
+    bilder.back().markerHinzufuegen(MarkerKartesisch("Deckel1", {738, 1299}));
+    bilder[19].markerHinzufuegen(MarkerKartesisch("Deckel2", {365, 729}));
+    bilder.back().markerHinzufuegen(MarkerKartesisch("Deckel2", {973, 40}));
     
-    for (size_t i = 1; i < kartesischeMarker.size(); ++i) {
+    for (size_t i = 1; i < 12; ++i) {
         bilder[i].ausrichten(bilder[i].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i].getMarker(kartesischeMarker[i][0].second.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].second.getName())->getKoord());
     }
+    
+    for (size_t i = 13; i <= 22; ++i) {
+        bilder[i].ausrichten(bilder[i].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i].getMarker(kartesischeMarker[i][0].second.getName())->getKoord(), bilder[i-12].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i-12].getMarker(kartesischeMarker[i][0].second.getName())->getKoord());
+    }
 
+    bilder.back().ausrichten(bilder.back().getMarker("Deckel1")->getKoord(), bilder.back().getMarker("Deckel2")->getKoord(), bilder[13].getMarker("Deckel1")->getKoord(), bilder[19].getMarker("Deckel2")->getKoord());
+    
     const int groesse{1024};
-    const MapSphaerischToKartesisch mapSphaToKart2D{3*M_PI/4};
+    const MapSphaerischToKartesisch mapSphaToKart2D{0};
     const MapKartesischToScreen mapKart2DToScreen{groesse/2, groesse/2};
     
     // Hintergrund
