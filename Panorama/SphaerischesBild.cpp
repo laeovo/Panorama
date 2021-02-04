@@ -155,15 +155,14 @@ void SphaerischesBild::ausrichten(const SphaerischeKoordinaten& marker1, const S
     const Kartesische3DKoordinaten drehachse1{Kartesische3DKoordinaten(marker1), Kartesische3DKoordinaten(referenz1)};
     const double winkel1{marker1.angularDistance(referenz1)};
     this->allesUmAchseDrehen(drehachse1, winkel1);
-    // TODO: was ist mit marker2; wurde der schon mitgedreht?
+    assert(marker1.angularDistance(referenz1) < 0.001); // TODO: sinnvollere Genauigkeit überlegen
+    this->zentrumVerschieben(referenz1);
     
     cout << "Ausrichten... (2/2)" << endl;
-    this->zentrumVerschieben(referenz1);
     const Kartesische3DKoordinaten drehachse2{referenz1};
     const double alpha{winkelZwischenVektoren({referenz1}, {referenz2})};
-    const double abschnittAufDrehachse{acos(alpha)};
-    const Kartesische3DKoordinaten referenz1Kart{referenz1};
-    const Kartesische3DKoordinaten punktAufDrehachse{referenz1Kart.x*abschnittAufDrehachse, referenz1Kart.y*abschnittAufDrehachse, referenz1Kart.z*abschnittAufDrehachse};
+    const double abschnittAufDrehachse{cos(alpha)};
+    const Kartesische3DKoordinaten punktAufDrehachse{drehachse2.x*abschnittAufDrehachse, drehachse2.y*abschnittAufDrehachse, drehachse2.z*abschnittAufDrehachse};
     const Kartesische3DKoordinaten richtungsvektorMarker2{Kartesische3DKoordinaten(marker2)-punktAufDrehachse};
     const Kartesische3DKoordinaten richtungsvektorReferenz2{Kartesische3DKoordinaten(referenz2)-punktAufDrehachse};
     const Kartesische3DKoordinaten drehachse2AusMarkern{richtungsvektorMarker2, richtungsvektorReferenz2};
@@ -203,6 +202,10 @@ const MarkerSphaerisch* const SphaerischesBild::getMarker(const std::string& nam
     }
     cout << "Kein Marker mit dem Namen '" << name << "' gefunden :/" << endl;
     return NULL;
+}
+
+const vector<MarkerSphaerisch>& SphaerischesBild::getAlleMarker() const {
+    return this->marker;
 }
 
 

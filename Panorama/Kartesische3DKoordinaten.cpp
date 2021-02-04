@@ -23,7 +23,7 @@ const Kartesische3DKoordinaten Kartesische3DKoordinaten::operator-(const Kartesi
 }
 
 const double Kartesische3DKoordinaten::getLaenge() const {
-    return sqrt(this->x*this->x+this->y*this->y+this->z*this->z);
+    return sqrt(skalarprodukt(*this, *this));
 }
 
 const Kartesische3DKoordinaten Kartesische3DKoordinaten::normiert() const {

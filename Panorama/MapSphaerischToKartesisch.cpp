@@ -5,6 +5,10 @@
 
 using namespace std;
 
+MapSphaerischToKartesisch::MapSphaerischToKartesisch() : MapSphaerischToKartesisch(0) {}
+
+MapSphaerischToKartesisch::MapSphaerischToKartesisch(const double startwinkel) : startwinkel(startwinkel) {}
+
 const KartesischeKoordinaten MapSphaerischToKartesisch::get(const SphaerischeKoordinaten& input) const {
     if (input.getLat() < -1.570796) {
         // Der Punkt liegt quasi auf dem Südpol
@@ -15,8 +19,8 @@ const KartesischeKoordinaten MapSphaerischToKartesisch::get(const SphaerischeKoo
     const double radius{(this->durchmesser)/2};
     assert(radius > 0);
     
-    const double x{-sin(input.getLon())*cos(input.getLat())*radius};
-    const double y{-cos(input.getLon())*cos(input.getLat())*radius};
+    const double x{-sin(input.getLon()+startwinkel)*cos(input.getLat())*radius};
+    const double y{-cos(input.getLon()+startwinkel)*cos(input.getLat())*radius};
     const double z{-radius + sin(input.getLat())*radius};
     
     const double faktor{this->durchmesser/(z-(-this->durchmesser))};
@@ -26,5 +30,5 @@ const KartesischeKoordinaten MapSphaerischToKartesisch::get(const SphaerischeKoo
 const SphaerischeKoordinaten MapSphaerischToKartesisch::getUrbild(const KartesischeKoordinaten &input) const {
     const double lon{atan2(-input.getX(), -input.getY())};
     const double lat{M_PI/2-2*atan(sqrt(input.getX()*input.getX()+input.getY()*input.getY())/this->durchmesser)};
-    return {lon, lat};
+    return {lon-startwinkel, lat};
 }
