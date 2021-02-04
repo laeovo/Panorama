@@ -120,35 +120,6 @@ void SphaerischesBild::allesUmAchseDrehen(const Kartesische3DKoordinaten& drehac
     this->wurdeTransformiert = true;
 }
 
-void SphaerischesBild::pan(const double winkel) {
-    cout << "Pan..." << endl;
-    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
-    this->allesUmAchseDrehen({0, 0, 1}, -winkel);
-    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
-    const chrono::duration<double> dauer {t1-t0};
-    cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
-}
-
-void SphaerischesBild::tilt(const double winkel) {
-    cout << "Tilt..." << endl;
-    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
-    const Kartesische3DKoordinaten drehachse{sin(this->mitte.getLon()), -cos(this->mitte.getLat()), 0};
-    this->allesUmAchseDrehen(drehachse, winkel);
-    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
-    const chrono::duration<double> dauer {t1-t0};
-    cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
-}
-
-void SphaerischesBild::drehenImUZS(const double winkel) {
-    cout << "Drehen..." << endl;
-    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
-    const Kartesische3DKoordinaten drehachse{this->mitte};
-    this->allesUmAchseDrehen(drehachse, winkel);
-    const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
-    const chrono::duration<double> dauer {t1-t0};
-    cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
-}
-
 void SphaerischesBild::ausrichten(const SphaerischeKoordinaten& marker1, const SphaerischeKoordinaten& marker2, const SphaerischeKoordinaten& referenz1, const SphaerischeKoordinaten& referenz2) {
     cout << "Ausrichten... (1/2)" << endl;
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};

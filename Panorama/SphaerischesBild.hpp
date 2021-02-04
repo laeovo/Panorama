@@ -21,9 +21,6 @@ public:
     const Farbe get(const SphaerischeKoordinaten& koordinaten) const;
     void print() const;
     void allesUmAchseDrehen(const Kartesische3DKoordinaten& drehachse, const double winkel);
-    void pan(const double winkel);
-    void tilt(const double winkel);
-    void drehenImUZS(const double winkel);
     void ausrichten(const SphaerischeKoordinaten& marker1, const SphaerischeKoordinaten& marker2, const SphaerischeKoordinaten& referenz1, const SphaerischeKoordinaten& referenz2);
     void zentrumVerschieben(const SphaerischeKoordinaten& neuesZentrum);
     void markerHinzufuegen(const MarkerKartesisch& neuerMarker);
