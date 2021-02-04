@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
     srand(0);
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     
-    const size_t anzahlBilder{7};
+    const size_t anzahlBilder{12};
     vector<SphaerischesBild> bilder{};
     for (size_t i = 1; i <= anzahlBilder; ++i) {
         string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
@@ -73,6 +73,21 @@ int main(int argc, const char * argv[]) {
     
     kartesischeMarker[5].push_back({MarkerKartesisch("Baumdelle", {1143, 600}), MarkerKartesisch("Schneefleck", {1149, 904})});
     kartesischeMarker[6].push_back({MarkerKartesisch("Baumdelle", {661, 641}), MarkerKartesisch("Schneefleck", {665, 895})});
+    
+    kartesischeMarker[6].push_back({MarkerKartesisch("Zweiggabelung", {1143, 382}), MarkerKartesisch("NichtAufStatueKlettern", {1171, 934})});
+    kartesischeMarker[7].push_back({MarkerKartesisch("Zweiggabelung", {639, 459}), MarkerKartesisch("NichtAufStatueKlettern", {659, 920})});
+    
+    kartesischeMarker[7].push_back({MarkerKartesisch("Zweiggabelung2", {1142, 344}), MarkerKartesisch("Baumbeet", {1066, 1017})});
+    kartesischeMarker[8].push_back({MarkerKartesisch("Zweiggabelung2", {639, 426}), MarkerKartesisch("Baumbeet", {588, 993})});
+    
+    kartesischeMarker[8].push_back({MarkerKartesisch("DafuqZweig", {1089, 574}), MarkerKartesisch("TvonApotheke", {1180, 890})});
+    kartesischeMarker[9].push_back({MarkerKartesisch("DafuqZweig", {628, 613}), MarkerKartesisch("TvonApotheke", {693, 883})});
+    
+    kartesischeMarker[9].push_back({MarkerKartesisch("Neunerfenster", {1116, 537}), MarkerKartesisch("BlauePlane", {1167, 895})});
+    kartesischeMarker[10].push_back({MarkerKartesisch("Neunerfenster", {636, 584}), MarkerKartesisch("BlauePlane", {671, 888})});
+    
+    kartesischeMarker[10].push_back({MarkerKartesisch("Crisscross", {1104, 382}), MarkerKartesisch("Litfasssaeule", {1090, 894})});
+    kartesischeMarker[11].push_back({MarkerKartesisch("Crisscross", {642, 448}), MarkerKartesisch("Litfasssaeule", {633, 887})});
     
     for (size_t i = 0; i < kartesischeMarker.size(); ++i) {
         for (const pair<MarkerKartesisch, MarkerKartesisch>& markerpaar : kartesischeMarker[i]) {
