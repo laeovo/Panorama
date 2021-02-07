@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 
+#include "Kartesische3DKoordinaten.hpp"
 #include "SphaerischeKoordinaten.hpp"
 
 using namespace std;
@@ -12,6 +13,10 @@ SphaerischeKoordinaten::SphaerischeKoordinaten(const double lon, const double la
     while (this->lon > M_PI) {
         this->lon -= 2*M_PI;
     }
+}
+
+SphaerischeKoordinaten::SphaerischeKoordinaten(const Kartesische3DKoordinaten& koord3D) : lon(atan2(koord3D.y, koord3D.x)), lat(asin(koord3D.z/koord3D.getLaenge())) {
+    
 }
 
 const double SphaerischeKoordinaten::getLon() const {

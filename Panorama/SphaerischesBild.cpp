@@ -105,17 +105,13 @@ void SphaerischesBild::allesUmAchseDrehen(const Kartesische3DKoordinaten& drehac
     for (vector<pair<SphaerischeKoordinaten, Farbe>>& region : this->bild) {
         for (pair<SphaerischeKoordinaten, Farbe>& pixel : region) {
             SphaerischeKoordinaten& spha{pixel.first};
-            const Kartesische3DKoordinaten alt{spha};
-            const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
-            spha = neu.toSphaerisch();
+            spha = rotationGegenUZS(spha, drehachse, winkel);
         }
     }
     for (MarkerSphaerisch& marker : this->marker) {
-        const Kartesische3DKoordinaten alt{marker.getKoord()};
-        const Kartesische3DKoordinaten neu{rotationGegenUZS(alt, drehachse, winkel)};
-        marker.setKoord(neu.toSphaerisch());
+        marker.setKoord(rotationGegenUZS(marker.getKoord(), drehachse, winkel));
     }
-    this->mitte = rotationGegenUZS(this->mitte, drehachse, winkel).toSphaerisch();
+    this->mitte = rotationGegenUZS(this->mitte, drehachse, winkel);
     this->pixelAufRegionenAufteilen();
     this->wurdeTransformiert = true;
 }

@@ -14,10 +14,6 @@ Kartesische3DKoordinaten::Kartesische3DKoordinaten(const SphaerischeKoordinaten&
 
 Kartesische3DKoordinaten::Kartesische3DKoordinaten(const Kartesische3DKoordinaten& ort1, const Kartesische3DKoordinaten& ort2) : x(ort1.y*ort2.z-ort1.z*ort2.y), y(ort1.z*ort2.x-ort1.x*ort2.z), z(ort1.x*ort2.y-ort1.y*ort2.x) {}
 
-const SphaerischeKoordinaten Kartesische3DKoordinaten::toSphaerisch() const {
-    return {atan2(this->y, this->x), asin(this->z/this->getLaenge())};
-}
-
 const Kartesische3DKoordinaten Kartesische3DKoordinaten::operator-(const Kartesische3DKoordinaten& other) const {
     return {this->x-other.x, this->y-other.y, this->z-other.z};
 }
