@@ -13,6 +13,7 @@
 #include "MapKartesischToScreen.hpp"
 #include "MapSphaerischToKartesisch.hpp"
 #include "Marker.hpp"
+#include "MarkerTool.hpp"
 #include "ScreenKoordinaten.hpp"
 #include "SphaerischeKoordinaten.hpp"
 #include "SphaerischesBild.hpp"
@@ -41,56 +42,56 @@ void markerZeichnen(SDL_Renderer* renderer, const MapSphaerischToKartesisch& map
 int main(int argc, const char * argv[]) {
 //    Test test{};
     srand(0);
-    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
+    const MarkerTool markerTool{1000};
+    const pair<KartesischeKoordinaten, KartesischeKoordinaten> erstesPaar{markerTool.markerBestimmen("/Users/leo/Pictures/2021-01-30 Schnee/Panorama/1.jpg", "/Users/leo/Pictures/2021-01-30 Schnee/Panorama/2.jpg")};
     
-    vector<SphaerischesBild> bilder{};
-    for (size_t i = 1; i <= 12; ++i) {
-        string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
-        dateiname.append(to_string(i));
-        dateiname.append(".jpg");
-        SphaerischesBild bildSphaere{dateiname, 16, 24};
-//        if (i > 1) {
-//            bildSphaere.pan(-2*M_PI/12*(i-1));
-//        }
-//        bildSphaere.drehenImUZS(-0.05);
-        bilder.push_back(bildSphaere);
-    }
+//    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
+    
+//    vector<SphaerischesBild> bilder{};
+//    for (size_t i = 1; i <= 12; ++i) {
+//        string dateiname{"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/"};
+//        dateiname.append(to_string(i));
+//        dateiname.append(".jpg");
+//        SphaerischesBild bildSphaere{dateiname, 16, 24};
+//        bilder.push_back(bildSphaere);
+//    }
+    
 //    bilder.push_back({"/Users/leo/Pictures/2021-01-30 Schnee/Panorama/deckel.jpg", 16, 24});
     
-    vector<vector<pair<MarkerKartesisch, MarkerKartesisch>>> kartesischeMarker(12);
-    kartesischeMarker[0].push_back({MarkerKartesisch("Hausspitze", {1125, 532}), MarkerKartesisch("30. Strebe", {1165, 1092})});
-    kartesischeMarker[1].push_back({MarkerKartesisch("Hausspitze", {852, 572}), MarkerKartesisch("30. Strebe", {882, 1062})});
-    
-    kartesischeMarker[1].push_back({MarkerKartesisch("Dachecke", {1145, 697}), MarkerKartesisch("Strebe mit schraegem Zweig", {1152, 1066})});
-    kartesischeMarker[2].push_back({MarkerKartesisch("Dachecke", {653, 722}), MarkerKartesisch("Strebe mit schraegem Zweig", {659, 1028})});
-
-    kartesischeMarker[2].push_back({MarkerKartesisch("Balkonecke", {1186, 565}), MarkerKartesisch("Handlaufkurve", {1138, 926})});
-    kartesischeMarker[3].push_back({MarkerKartesisch("Balkonecke", {702, 618}), MarkerKartesisch("Handlaufkurve", {670, 913})});
-    
-    kartesischeMarker[3].push_back({MarkerKartesisch("L", {1070, 549}), MarkerKartesisch("Gelaender Meets Baum", {1162, 932})});
-    kartesischeMarker[4].push_back({MarkerKartesisch("L", {594, 588}), MarkerKartesisch("Gelaender Meets Baum", {660, 917})});
-    
-    kartesischeMarker[4].push_back({MarkerKartesisch("DachgiebelMeetsBaum", {1100, 588}), MarkerKartesisch("MauerMeetsBaum", {1112, 939})});
-    kartesischeMarker[5].push_back({MarkerKartesisch("DachgiebelMeetsBaum", {628, 626}), MarkerKartesisch("MauerMeetsBaum", {638, 925})});
-    
-    kartesischeMarker[5].push_back({MarkerKartesisch("Baumdelle", {1143, 600}), MarkerKartesisch("Schneefleck", {1149, 904})});
-    kartesischeMarker[6].push_back({MarkerKartesisch("Baumdelle", {661, 641}), MarkerKartesisch("Schneefleck", {665, 895})});
-    
-    kartesischeMarker[6].push_back({MarkerKartesisch("Zweiggabelung", {1143, 382}), MarkerKartesisch("NichtAufStatueKlettern", {1171, 934})});
-    kartesischeMarker[7].push_back({MarkerKartesisch("Zweiggabelung", {639, 459}), MarkerKartesisch("NichtAufStatueKlettern", {659, 920})});
-    
-    kartesischeMarker[7].push_back({MarkerKartesisch("Zweiggabelung2", {1142, 344}), MarkerKartesisch("Baumbeet", {1066, 1017})});
-    kartesischeMarker[8].push_back({MarkerKartesisch("Zweiggabelung2", {639, 426}), MarkerKartesisch("Baumbeet", {588, 993})});
-    
-    kartesischeMarker[8].push_back({MarkerKartesisch("DafuqZweig", {1089, 574}), MarkerKartesisch("TvonApotheke", {1180, 890})});
-    kartesischeMarker[9].push_back({MarkerKartesisch("DafuqZweig", {628, 613}), MarkerKartesisch("TvonApotheke", {693, 883})});
-    
-    kartesischeMarker[9].push_back({MarkerKartesisch("Neunerfenster", {1116, 537}), MarkerKartesisch("BlauePlane", {1167, 895})});
-    kartesischeMarker[10].push_back({MarkerKartesisch("Neunerfenster", {636, 584}), MarkerKartesisch("BlauePlane", {671, 888})});
-    
-    kartesischeMarker[10].push_back({MarkerKartesisch("Crisscross", {1104, 382}), MarkerKartesisch("Litfasssaeule", {1090, 894})});
-    kartesischeMarker[11].push_back({MarkerKartesisch("Crisscross", {642, 448}), MarkerKartesisch("Litfasssaeule", {633, 887})});
-    
+//    vector<vector<pair<MarkerKartesisch, MarkerKartesisch>>> kartesischeMarker(12);
+//    kartesischeMarker[0].push_back({MarkerKartesisch("Hausspitze", {1125, 532}), MarkerKartesisch("30. Strebe", {1165, 1092})});
+//    kartesischeMarker[1].push_back({MarkerKartesisch("Hausspitze", {852, 572}), MarkerKartesisch("30. Strebe", {882, 1062})});
+//
+//    kartesischeMarker[1].push_back({MarkerKartesisch("Dachecke", {1145, 697}), MarkerKartesisch("Strebe mit schraegem Zweig", {1152, 1066})});
+//    kartesischeMarker[2].push_back({MarkerKartesisch("Dachecke", {653, 722}), MarkerKartesisch("Strebe mit schraegem Zweig", {659, 1028})});
+//
+//    kartesischeMarker[2].push_back({MarkerKartesisch("Balkonecke", {1186, 565}), MarkerKartesisch("Handlaufkurve", {1138, 926})});
+//    kartesischeMarker[3].push_back({MarkerKartesisch("Balkonecke", {702, 618}), MarkerKartesisch("Handlaufkurve", {670, 913})});
+//
+//    kartesischeMarker[3].push_back({MarkerKartesisch("L", {1070, 549}), MarkerKartesisch("Gelaender Meets Baum", {1162, 932})});
+//    kartesischeMarker[4].push_back({MarkerKartesisch("L", {594, 588}), MarkerKartesisch("Gelaender Meets Baum", {660, 917})});
+//
+//    kartesischeMarker[4].push_back({MarkerKartesisch("DachgiebelMeetsBaum", {1100, 588}), MarkerKartesisch("MauerMeetsBaum", {1112, 939})});
+//    kartesischeMarker[5].push_back({MarkerKartesisch("DachgiebelMeetsBaum", {628, 626}), MarkerKartesisch("MauerMeetsBaum", {638, 925})});
+//
+//    kartesischeMarker[5].push_back({MarkerKartesisch("Baumdelle", {1143, 600}), MarkerKartesisch("Schneefleck", {1149, 904})});
+//    kartesischeMarker[6].push_back({MarkerKartesisch("Baumdelle", {661, 641}), MarkerKartesisch("Schneefleck", {665, 895})});
+//
+//    kartesischeMarker[6].push_back({MarkerKartesisch("Zweiggabelung", {1143, 382}), MarkerKartesisch("NichtAufStatueKlettern", {1171, 934})});
+//    kartesischeMarker[7].push_back({MarkerKartesisch("Zweiggabelung", {639, 459}), MarkerKartesisch("NichtAufStatueKlettern", {659, 920})});
+//
+//    kartesischeMarker[7].push_back({MarkerKartesisch("Zweiggabelung2", {1142, 344}), MarkerKartesisch("Baumbeet", {1066, 1017})});
+//    kartesischeMarker[8].push_back({MarkerKartesisch("Zweiggabelung2", {639, 426}), MarkerKartesisch("Baumbeet", {588, 993})});
+//
+//    kartesischeMarker[8].push_back({MarkerKartesisch("DafuqZweig", {1089, 574}), MarkerKartesisch("TvonApotheke", {1180, 890})});
+//    kartesischeMarker[9].push_back({MarkerKartesisch("DafuqZweig", {628, 613}), MarkerKartesisch("TvonApotheke", {693, 883})});
+//
+//    kartesischeMarker[9].push_back({MarkerKartesisch("Neunerfenster", {1116, 537}), MarkerKartesisch("BlauePlane", {1167, 895})});
+//    kartesischeMarker[10].push_back({MarkerKartesisch("Neunerfenster", {636, 584}), MarkerKartesisch("BlauePlane", {671, 888})});
+//
+//    kartesischeMarker[10].push_back({MarkerKartesisch("Crisscross", {1104, 382}), MarkerKartesisch("Litfasssaeule", {1090, 894})});
+//    kartesischeMarker[11].push_back({MarkerKartesisch("Crisscross", {642, 448}), MarkerKartesisch("Litfasssaeule", {633, 887})});
+//
 //    kartesischeMarker[12].push_back({MarkerKartesisch("Hausspitze", {1029, 1091}), MarkerKartesisch("UmgekehrtesV", {991, 302})});
 //
 //    kartesischeMarker[13].push_back({MarkerKartesisch("Hausspitze", {589, 1145}), MarkerKartesisch("Dachecke", {855, 1278})});
@@ -113,20 +114,20 @@ int main(int argc, const char * argv[]) {
 //
 //    kartesischeMarker[22].push_back({MarkerKartesisch("Neunerfenster", {381, 1135}), MarkerKartesisch("Crisscross", {770, 1014})});
     
-    for (size_t i = 0; i < kartesischeMarker.size(); ++i) {
-        for (const pair<MarkerKartesisch, MarkerKartesisch>& markerpaar : kartesischeMarker[i]) {
-            bilder[i].markerHinzufuegen(markerpaar.first);
-            bilder[i].markerHinzufuegen(markerpaar.second);
-        }
-    }
+//    for (size_t i = 0; i < kartesischeMarker.size(); ++i) {
+//        for (const pair<MarkerKartesisch, MarkerKartesisch>& markerpaar : kartesischeMarker[i]) {
+//            bilder[i].markerHinzufuegen(markerpaar.first);
+//            bilder[i].markerHinzufuegen(markerpaar.second);
+//        }
+//    }
 //    bilder[13].markerHinzufuegen(MarkerKartesisch("Deckel1", {393, 470}));
 //    bilder.back().markerHinzufuegen(MarkerKartesisch("Deckel1", {738, 1299}));
 //    bilder[19].markerHinzufuegen(MarkerKartesisch("Deckel2", {365, 729}));
 //    bilder.back().markerHinzufuegen(MarkerKartesisch("Deckel2", {973, 40}));
     
-    for (size_t i = 1; i < 12; ++i) {
-        bilder[i].ausrichten(bilder[i].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i].getMarker(kartesischeMarker[i][0].second.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].second.getName())->getKoord());
-    }
+//    for (size_t i = 1; i < 12; ++i) {
+//        bilder[i].ausrichten(bilder[i].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i].getMarker(kartesischeMarker[i][0].second.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i-1].getMarker(kartesischeMarker[i][0].second.getName())->getKoord());
+//    }
     
 //    for (size_t i = 13; i <= 22; ++i) {
 //        bilder[i].ausrichten(bilder[i].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i].getMarker(kartesischeMarker[i][0].second.getName())->getKoord(), bilder[i-12].getMarker(kartesischeMarker[i][0].first.getName())->getKoord(), bilder[i-12].getMarker(kartesischeMarker[i][0].second.getName())->getKoord());
