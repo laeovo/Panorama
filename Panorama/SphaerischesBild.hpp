@@ -25,7 +25,7 @@ public:
     void zentrumVerschieben(const SphaerischeKoordinaten& neuesZentrum);
     void markerHinzufuegen(const MarkerKartesisch& neuerMarker);
     void markerHinzufuegen(const MarkerSphaerisch& neuerMarker);
-    const MarkerSphaerisch* const getMarker(const std::string& name) const;
+    const MarkerSphaerisch* const getMarker(const size_t id) const;
     const std::vector<MarkerSphaerisch>& getAlleMarker() const;
 private:
     std::vector<std::vector<std::pair<SphaerischeKoordinaten, Farbe>>> bild;

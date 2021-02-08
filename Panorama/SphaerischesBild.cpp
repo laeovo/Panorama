@@ -166,20 +166,20 @@ void SphaerischesBild::zentrumVerschieben(const SphaerischeKoordinaten& neuesZen
 
 void SphaerischesBild::markerHinzufuegen(const MarkerKartesisch& neuerMarker) {
     assert(!this->wurdeTransformiert);
-    this->markerHinzufuegen(MarkerSphaerisch(neuerMarker.getName(), this->mapKartToSpha.get(neuerMarker.getKoord())));
+    this->markerHinzufuegen(MarkerSphaerisch(neuerMarker.getId(), this->mapKartToSpha.get(neuerMarker.getKoord())));
 }
 
 void SphaerischesBild::markerHinzufuegen(const MarkerSphaerisch& neuerMarker) {
     this->marker.push_back(neuerMarker);
 }
 
-const MarkerSphaerisch* const SphaerischesBild::getMarker(const std::string& name) const {
+const MarkerSphaerisch* const SphaerischesBild::getMarker(const size_t id) const {
     for (const MarkerSphaerisch& marker : this->marker) {
-        if (marker.getName() == name) {
+        if (marker.getId() == id) {
             return &marker;
         }
     }
-    cout << "Kein Marker mit dem Namen '" << name << "' gefunden :/" << endl;
+    cout << "Kein Marker mit der ID '" << id << "' gefunden :/" << endl;
     return NULL;
 }
 

@@ -9,16 +9,16 @@
 
 class Marker {
 public:
-    Marker(const std::string& name);
-    const std::string& getName() const;
+    Marker(const size_t id);
+    const size_t getId() const;
 private:
-    const std::string name;
+    const size_t id;
 };
 
 
 class MarkerKartesisch : public Marker {
 public:
-    MarkerKartesisch(const std::string& name, const KartesischeKoordinaten& koord);
+    MarkerKartesisch(const size_t id, const KartesischeKoordinaten& koord);
     const KartesischeKoordinaten& getKoord() const;
     void setKoord(const KartesischeKoordinaten& neu);
 private:
@@ -28,7 +28,7 @@ private:
 
 class MarkerSphaerisch : public Marker {
 public:
-    MarkerSphaerisch(const std::string& name, const SphaerischeKoordinaten& koord);
+    MarkerSphaerisch(const size_t id, const SphaerischeKoordinaten& koord);
     const SphaerischeKoordinaten& getKoord() const;
     void setKoord(const SphaerischeKoordinaten& neu);
 private:
