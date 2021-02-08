@@ -34,14 +34,41 @@ const pair<KartesischeKoordinaten, KartesischeKoordinaten> MarkerTool::markerBes
     
     this->bildZeichnen(LINKES_BILD, bilder.first, renderer, marker.first, faktor.first);
     this->bildZeichnen(RECHTES_BILD, bilder.second, renderer, marker.second, faktor.second);
-
     SDL_UpdateWindowSurface(window);
+
     bool quit = false;
     while (!quit) {
         SDL_Event e;
         if (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 quit = true;
+            }
+            else if (e.type == SDL_MOUSEBUTTONDOWN){
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                if (x >= this->fensterhoehe-this->buttongroesse && x < this->fensterhoehe+this->buttongroesse+1 && y >= this->fensterhoehe-this->buttongroesse) {
+                    return marker;
+                }
+                if (x < this->fensterhoehe) {
+                    const double bildbreite{faktor.first*bilder.first.width()};
+                    const double bildhoehe{faktor.first*bilder.first.height()};
+                    const pair<int, int> eckeObenLinks{this->fensterhoehe/2-bildbreite*marker.first.getX()/bilder.first.width(), this->fensterhoehe/2-bildhoehe*marker.first.getY()/bilder.first.height()};
+                    const pair<int, int> eckeUntenRechts{eckeObenLinks.first+bildbreite, eckeObenLinks.second+bildhoehe};
+                    marker = {{(x-eckeObenLinks.first)/faktor.first, (y-eckeObenLinks.second)/faktor.first}, marker.second};
+                    faktor = {faktor.first*this->faktorMultiplikator, faktor.second};
+                    this->bildZeichnen(LINKES_BILD, bilder.first, renderer, marker.first, faktor.first);
+                    SDL_UpdateWindowSurface(window);
+                }
+                else {
+                    const double bildbreite{faktor.second*bilder.second.width()};
+                    const double bildhoehe{faktor.second*bilder.second.height()};
+                    const pair<int, int> eckeObenLinks{this->fensterhoehe/2-bildbreite*marker.second.getX()/bilder.second.width(), this->fensterhoehe/2-bildhoehe*marker.second.getY()/bilder.second.height()};
+                    const pair<int, int> eckeUntenRechts{eckeObenLinks.first+bildbreite, eckeObenLinks.second+bildhoehe};
+                    marker = {marker.first, {(x-this->fensterhoehe-eckeObenLinks.first)/faktor.second, (y-eckeObenLinks.second)/faktor.second}};
+                    faktor = {faktor.first, faktor.second*this->faktorMultiplikator};
+                    this->bildZeichnen(RECHTES_BILD, bilder.second, renderer, marker.second, faktor.second);
+                    SDL_UpdateWindowSurface(window);
+                }
             }
         }
     }
@@ -59,9 +86,12 @@ void MarkerTool::bildZeichnen(const BildSeite seite, const cimg_library::CImg<un
     const pair<int, int> eckeObenLinks{this->fensterhoehe/2-bildbreite*neuerMarker.getX()/bild.width(), this->fensterhoehe/2-bildhoehe*neuerMarker.getY()/bild.height()};
     const pair<int, int> eckeUntenRechts{eckeObenLinks.first+bildbreite, eckeObenLinks.second+bildhoehe};
     
-    cout << "Ecke oben links: (" << eckeObenLinks.first << ", " << eckeObenLinks.second << ")" << endl;
-    cout << "Ecke unten rechte: (" << eckeUntenRechts.first << ", " << eckeUntenRechts.second << ")" << endl;
-    
+    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+    for (int i = 0; i < this->fensterhoehe; ++i) {
+        for (int j = 0; j < this->fensterhoehe; ++j) {
+            SDL_RenderDrawPoint(renderer, i+seite*this->fensterhoehe, j);
+        }
+    }
     for (int i = max(eckeObenLinks.first, 0); i < min(this->fensterhoehe, eckeUntenRechts.first); ++i) {
         for (int j = max(eckeObenLinks.second, 0); j < min(this->fensterhoehe, eckeUntenRechts.second); ++j) {
             const int x{int((i-eckeObenLinks.first)/neuerFaktor)};
@@ -70,6 +100,20 @@ void MarkerTool::bildZeichnen(const BildSeite seite, const cimg_library::CImg<un
             SDL_RenderDrawPoint(renderer, i+seite*this->fensterhoehe, j);
         }
     }
-    // TODO: Fadenkreuz zeichnen
-    // TODO: Button zeichnen
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    for (int i = this->fensterhoehe/2-50; i < this->fensterhoehe/2+50+1; ++i) {
+        SDL_RenderDrawPoint(renderer, i+seite*this->fensterhoehe, i);
+        SDL_RenderDrawPoint(renderer, i+seite*this->fensterhoehe, this->fensterhoehe-i-1);
+    }
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    for (int j = 0; j < this->fensterhoehe; ++j) {
+        SDL_RenderDrawPoint(renderer, this->fensterhoehe-1, j);
+        SDL_RenderDrawPoint(renderer, this->fensterhoehe, j);
+    }
+    SDL_SetRenderDrawColor(renderer, 0, 120, 30, 255);
+    for (int i = this->fensterhoehe-this->buttongroesse; i < this->fensterhoehe+this->buttongroesse+1; ++i) {
+        for (int j = this->fensterhoehe-this->buttongroesse; j < this->fensterhoehe; ++j) {
+            SDL_RenderDrawPoint(renderer, i, j);
+        }
+    }
 }

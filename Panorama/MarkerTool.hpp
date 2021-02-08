@@ -23,6 +23,9 @@ private:
     void bildZeichnen(const BildSeite seite, const cimg_library::CImg<unsigned char>& bild, SDL_Renderer* renderer, const KartesischeKoordinaten& neuerMarker, const double neuerFaktor) const;
     
     const int fensterhoehe;
+    
+    const double faktorMultiplikator{1.5};
+    const int buttongroesse{100};
 };
 
 #endif /* MarkerTool_hpp */

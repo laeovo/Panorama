@@ -45,6 +45,10 @@ int main(int argc, const char * argv[]) {
     const MarkerTool markerTool{1000};
     const pair<KartesischeKoordinaten, KartesischeKoordinaten> erstesPaar{markerTool.markerBestimmen("/Users/leo/Pictures/2021-01-30 Schnee/Panorama/1.jpg", "/Users/leo/Pictures/2021-01-30 Schnee/Panorama/2.jpg")};
     
+    cout << "Habe Marker erhalten!" << endl;
+    erstesPaar.first.print();
+    erstesPaar.second.print();
+    
 //    const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     
 //    vector<SphaerischesBild> bilder{};
