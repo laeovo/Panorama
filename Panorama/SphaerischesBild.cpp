@@ -14,6 +14,7 @@
 using namespace std;
 
 SphaerischesBild::SphaerischesBild(const string& dateiname, const double brennweite, const double sensorbreite) : mapKartToSpha(cimg_library::CImg<unsigned char>(dateiname.c_str()).width(), cimg_library::CImg<unsigned char>(dateiname.c_str()).height(), brennweite, sensorbreite) {
+    cout << "Erstelle sphärisches Bild..." << endl;
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
     cimg_library::CImg<unsigned char> bild(dateiname.c_str());
     this->bild = {this->triangulation.getAnzahlRegionen(), {{}}};
@@ -117,47 +118,50 @@ void SphaerischesBild::allesUmAchseDrehen(const Kartesische3DKoordinaten& drehac
 }
 
 void SphaerischesBild::ausrichten(const SphaerischeKoordinaten& marker1, const SphaerischeKoordinaten& marker2, const SphaerischeKoordinaten& referenz1, const SphaerischeKoordinaten& referenz2) {
-    cout << "Ausrichten..." << endl;
+    const double distMarker{marker1.angularDistance(marker2)};
+    const double distRef{referenz1.angularDistance(referenz2)};
+    if (abs(distMarker-distRef) > 0.001) {
+        cout << "Warnung: Marker haben unterschiedliche Abstände!" << endl;
+        cout << " Marker1 - Marker2 : " << distMarker << " = " << distMarker*180/M_PI << " °" << endl;
+        cout << " Ref1 - Ref2       : " << distRef << " = " << distRef*180/M_PI << " °" << endl;
+    }
     const chrono::high_resolution_clock::time_point t0{chrono::high_resolution_clock::now()};
-    
-    const Kartesische3DKoordinaten mittelebene1{Kartesische3DKoordinaten(referenz1) - Kartesische3DKoordinaten(marker1)};
-    const Kartesische3DKoordinaten mittelebene2{Kartesische3DKoordinaten(referenz2) - Kartesische3DKoordinaten(marker2)};
-    const Kartesische3DKoordinaten drehachse{Kartesische3DKoordinaten(mittelebene1, mittelebene2).normiert()};
-    
-    const double alpha1{winkelZwischenVektoren(drehachse, marker1)};
-    const double abschnittAufDrehachse1{cos(alpha1)};
-    const Kartesische3DKoordinaten punktAufDrehachse1{drehachse.x * abschnittAufDrehachse1, drehachse.y * abschnittAufDrehachse1, drehachse.z * abschnittAufDrehachse1};
-    const Kartesische3DKoordinaten richtungsvektorMarker1{Kartesische3DKoordinaten(marker1) - punktAufDrehachse1};
-    const Kartesische3DKoordinaten richtungsvektorReferenz1{Kartesische3DKoordinaten(referenz1) - punktAufDrehachse1};
-    const double winkel1{winkelZwischenVektoren(richtungsvektorMarker1, richtungsvektorReferenz1)};
-    const Kartesische3DKoordinaten drehachseAusMarkern1{richtungsvektorMarker1, richtungsvektorReferenz1};
-    
-    const double alpha2{winkelZwischenVektoren(drehachse, marker2)};
-    const double abschnittAufDrehachse2{cos(alpha2)};
-    const Kartesische3DKoordinaten punktAufDrehachse2{drehachse.x * abschnittAufDrehachse2, drehachse.y * abschnittAufDrehachse2, drehachse.z * abschnittAufDrehachse1};
-    const Kartesische3DKoordinaten richtungsvektorMarker2{Kartesische3DKoordinaten(marker2) - punktAufDrehachse2};
-    const Kartesische3DKoordinaten richtungsvektorReferenz2{Kartesische3DKoordinaten(referenz2) - punktAufDrehachse2};
-    const double winkel2{winkelZwischenVektoren(richtungsvektorMarker2, richtungsvektorReferenz2)};
-    const Kartesische3DKoordinaten drehachseAusMarkern2{richtungsvektorMarker2, richtungsvektorReferenz2};
-    
-    double winkel{(winkel1+winkel2)/2};
-    
-    if (skalarprodukt(drehachse, drehachseAusMarkern1) > 0) {
-        // gegen den UZS drehen
-    }
-    else {
-        // im UZS drehen
-        winkel *= -1;
-    }
+    /// Ab hier: alter Code ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//    cout << "Ausrichten... (1/2)" << endl;
+//    const Kartesische3DKoordinaten drehachse1{Kartesische3DKoordinaten(marker1), Kartesische3DKoordinaten(referenz1)};
+//    const double winkel1{marker1.angularDistance(referenz1)};
+//    this->allesUmAchseDrehen(drehachse1, winkel1);
+//    this->zentrumVerschieben(referenz1);
+//
+//    cout << "Ausrichten... (2/2)" << endl;
+//    const Kartesische3DKoordinaten drehachse2{referenz1};
+//    const double alpha{winkelZwischenVektoren({referenz1}, {referenz2})};
+//    const double abschnittAufDrehachse{cos(alpha)};
+//    const Kartesische3DKoordinaten punktAufDrehachse{drehachse2.x*abschnittAufDrehachse, drehachse2.y*abschnittAufDrehachse, drehachse2.z*abschnittAufDrehachse};
+//    const Kartesische3DKoordinaten richtungsvektorMarker2{Kartesische3DKoordinaten(marker2)-punktAufDrehachse};
+//    const Kartesische3DKoordinaten richtungsvektorReferenz2{Kartesische3DKoordinaten(referenz2)-punktAufDrehachse};
+//    const Kartesische3DKoordinaten drehachse2AusMarkern{richtungsvektorMarker2, richtungsvektorReferenz2};
+//    double winkel2{winkelZwischenVektoren(richtungsvektorMarker2, richtungsvektorReferenz2)};
+//    if (skalarprodukt(drehachse2, drehachse2AusMarkern) > 0) {
+//        // gegen den UZS drehen
+//    }
+//    else {
+//        // im UZS drehen
+//        winkel2 *= -1;
+//    }
+//    this->allesUmAchseDrehen(drehachse2, winkel2);
+    /// Bis hier: alter Code ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    const Kartesische3DKoordinaten drehachse{Kartesische3DKoordinaten(Kartesische3DKoordinaten(referenz1)-Kartesische3DKoordinaten(marker1), Kartesische3DKoordinaten(referenz2)-Kartesische3DKoordinaten(marker2)).normiert()};
+    const double abschnittAufDrehachse{skalarprodukt(drehachse, marker1)};
+    const Kartesische3DKoordinaten punktAufDrehachse{abschnittAufDrehachse, drehachse};
+    const double winkel{winkelZwischenVektoren(Kartesische3DKoordinaten(marker1)-punktAufDrehachse, Kartesische3DKoordinaten(referenz1)-punktAufDrehachse)};
     this->allesUmAchseDrehen(drehachse, winkel);
     
-//    cout << "Abstand1: " << marker1.angularDistance(referenz1) << " --> " << SphaerischeKoordinaten(rotationGegenUZS(marker1, drehachse, winkel)).angularDistance(referenz1) << endl;
-//    cout << "Abstand2: " << marker2.angularDistance(referenz2) << " --> " <<SphaerischeKoordinaten(rotationGegenUZS(marker2, drehachse, winkel)).angularDistance(referenz2) << endl;
-//    cout << "Abstand Marker vs. Referenz: " << marker1.angularDistance(marker2) << " vs. " << referenz1.angularDistance(referenz2) << ", Differenz = " << referenz1.angularDistance(referenz2) - marker1.angularDistance(marker2) << endl;
+    // TODO: überprüfen, ob Drehung geklappt hat
+    
     const chrono::high_resolution_clock::time_point t1{chrono::high_resolution_clock::now()};
     const chrono::duration<double> dauer {t1-t0};
     cout << "Fertig (" << dauer.count() << " Sekunden)" << endl;
-    cout << endl;
 }
 
 void SphaerischesBild::zentrumVerschieben(const SphaerischeKoordinaten& neuesZentrum) {

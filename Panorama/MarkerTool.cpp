@@ -23,7 +23,7 @@ const pair<KartesischeKoordinaten, KartesischeKoordinaten> MarkerTool::markerBes
     
     
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("Panorama", 0, 0, fensterbreite, this->fensterhoehe, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow("Markertool", 0, 0, fensterbreite, this->fensterhoehe, SDL_WINDOW_SHOWN);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
     
     // Hintergrund
@@ -96,7 +96,7 @@ void MarkerTool::bildZeichnen(const BildSeite seite, const cimg_library::CImg<un
         for (int j = max(eckeObenLinks.second, 0); j < min(this->fensterhoehe, eckeUntenRechts.second); ++j) {
             const int x{int((i-eckeObenLinks.first)/neuerFaktor)};
             const int y{int((j-eckeObenLinks.second)/neuerFaktor)};
-            SDL_SetRenderDrawColor(renderer, bild(x, y, 0, 0), bild(x, y, 0, 1), bild(x, y, 0, 2), 255);
+            SDL_SetRenderDrawColor(renderer, (int)bild(x, y, 0, 0), (int)bild(x, y, 0, 1), (int)bild(x, y, 0, 2), 255);
             SDL_RenderDrawPoint(renderer, i+seite*this->fensterhoehe, j);
         }
     }
@@ -116,4 +116,5 @@ void MarkerTool::bildZeichnen(const BildSeite seite, const cimg_library::CImg<un
             SDL_RenderDrawPoint(renderer, i, j);
         }
     }
+    SDL_RenderPresent(renderer);
 }

@@ -3,9 +3,6 @@
 
 #include <stdio.h>
 
-class Test {
-public:
-    Test();
-};
+void test1();
 
 #endif /* Test_hpp */

@@ -30,8 +30,8 @@ public:
 private:
     std::vector<std::vector<std::pair<SphaerischeKoordinaten, Farbe>>> bild;
     std::vector<MarkerSphaerisch> marker;
-    const double schaerfe{0.01}; // Einflussradius der Pixel.
-    const KugelTriangulation triangulation{0.003}; // Unterteilung in Regionen. Der Parameter gibt die Regionengröße an. Vorzugsweise so, dass immer ca. 10 Pixel in einer Region sind.
+    const double schaerfe{0.001}; // Einflussradius der Pixel.
+    const KugelTriangulation triangulation{0.01}; // Unterteilung in Regionen. Der Parameter gibt die Regionengröße an. Vorzugsweise so, dass immer ca. 10 Pixel in einer Region sind.
     const MapKartesischToSphaerisch mapKartToSpha;
     SphaerischeKoordinaten mitte{0, 0}; // Hiermit sind die Koordinaten des Bildreferenzpunkts gemeint. Initial in der Bildmitte.
     bool wurdeTransformiert = false;

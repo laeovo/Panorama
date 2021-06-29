@@ -11,6 +11,7 @@ public:
     Kartesische3DKoordinaten(const double x, const double y, const double z);
     Kartesische3DKoordinaten(const SphaerischeKoordinaten& spha);
     Kartesische3DKoordinaten(const Kartesische3DKoordinaten& ort1, const Kartesische3DKoordinaten& ort2);
+    Kartesische3DKoordinaten(const double lambda, const Kartesische3DKoordinaten& v);
     const Kartesische3DKoordinaten operator-(const Kartesische3DKoordinaten& other) const;
     
     const double getLaenge() const;

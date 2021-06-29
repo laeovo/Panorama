@@ -17,7 +17,7 @@ enum BildSeite {
 
 class MarkerTool {
 public:
-    MarkerTool(const int fensterhoehe);
+    MarkerTool(const int fensterhoehe=500);
     const std::pair<KartesischeKoordinaten, KartesischeKoordinaten> markerBestimmen(const std::string& dateiname1, const std::string& dateiname2) const;
 private:
     void bildZeichnen(const BildSeite seite, const cimg_library::CImg<unsigned char>& bild, SDL_Renderer* renderer, const KartesischeKoordinaten& neuerMarker, const double neuerFaktor) const;
